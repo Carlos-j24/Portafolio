@@ -27,17 +27,20 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, onUnmounted } from 'vue'
 
 const typedText = ref('')
 
 const phrase = 'Building solutions with purpose.'
 
+let interval = null
+
 onMounted(() => {
 
   let index = 0
 
-  const interval = setInterval(() => {
+  // 40 ms por letra: la frase termina (~1,3 s) antes de que App pase a Home (1,8 s)
+  interval = setInterval(() => {
 
     typedText.value += phrase[index]
 
@@ -47,6 +50,10 @@ onMounted(() => {
       clearInterval(interval)
     }
 
-  }, 60)
+  }, 40)
+})
+
+onUnmounted(() => {
+  clearInterval(interval)
 })
 </script>

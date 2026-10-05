@@ -38,7 +38,12 @@ const flash = ref(false)
 
 const alreadyVisited = sessionStorage.getItem('intro-seen') === 'true'
 
-const stage = ref(alreadyVisited ? 'home' : 'loading')
+// Quien pide menos movimiento en su sistema va directo a Home, sin la intro animada
+const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+
+const skipIntroOnLoad = alreadyVisited || prefersReducedMotion
+
+const stage = ref(skipIntroOnLoad ? 'home' : 'loading')
 
 let interval = null
 let timeouts = []
@@ -53,7 +58,7 @@ const skipIntro = () => {
 
 onMounted(() => {
 
-  if (alreadyVisited) return
+  if (skipIntroOnLoad) return
 
   interval = setInterval(() => {
 
@@ -98,6 +103,20 @@ onUnmounted(() => {
 <style>
 html {
   scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }
 
 body {
