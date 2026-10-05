@@ -41,12 +41,21 @@ npm run preview
 src/
 ├── App.vue                 # Orquesta la intro (loading → flash → welcome → home)
 ├── main.js
+├── style.css               # Tailwind + estilos compartidos (cuadrícula, animaciones)
+├── i18n.js                 # Textos en inglés y español
+├── composables/
+│   └── useLang.js           # Idioma compartido (detección, persistencia, textos)
+├── data/
+│   └── projects.js          # Proyectos (image opcional para la captura)
 ├── components/
 │   ├── LoadingScreen.vue    # Pantalla de carga con barra de progreso y skip
 │   ├── SystemFlash.vue      # Efecto de transición
-│   └── WelcomeScreen.vue    # Pantalla de bienvenida
+│   ├── WelcomeScreen.vue    # Pantalla de bienvenida
+│   ├── CursorGlow.vue       # Brillo que sigue al cursor
+│   ├── AppHeader.vue        # Navegación, idioma y menú móvil
+│   └── sections/            # Hero, About, Skills, Projects, Terminal y Contact
 └── views/
-    └── Home.vue             # Página principal (todas las secciones)
+    └── Home.vue             # Monta cabecera, secciones y pie
 ```
 
 ## 📦 Deploy

@@ -191,21 +191,6 @@ const currentMessage = computed(() => {
 </script>
 
 <style scoped>
-.engineering-grid {
-  background-image:
-    linear-gradient(
-      rgba(255,255,255,0.06) 1px,
-      transparent 1px
-    ),
-    linear-gradient(
-      90deg,
-      rgba(255,255,255,0.06) 1px,
-      transparent 1px
-    );
-
-  background-size: 40px 40px;
-}
-
 .fade-enter-active,
 .fade-leave-active {
   transition: all 0.6s ease;
