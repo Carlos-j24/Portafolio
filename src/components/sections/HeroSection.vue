@@ -51,19 +51,21 @@
 
       <!-- CTA -->
       <div class="mt-10 flex justify-center gap-4 animate-fade-in-up anim-delay-500">
-        <a
-          href="#projects"
+        <RouterLink
+          :to="{ path: '/', hash: '#projects' }"
+          @click="scrollIfCurrent('#projects')"
           class="px-6 py-3 bg-white text-black rounded-lg hover:scale-105 transition shadow-lg"
         >
           {{ t.hero.viewProjects }}
-        </a>
+        </RouterLink>
 
-        <a
-          href="#contact"
+        <RouterLink
+          :to="{ path: '/', hash: '#contact' }"
+          @click="scrollIfCurrent('#contact')"
           class="px-6 py-3 border border-white/20 rounded-lg hover:bg-white/5 transition"
         >
           {{ t.hero.contactMe }}
-        </a>
+        </RouterLink>
       </div>
 
     </div>
@@ -72,6 +74,7 @@
 
 <script setup>
 import { useLang } from '../../composables/useLang.js'
+import { scrollIfCurrent } from '../../router.js'
 
 const { t } = useLang()
 </script>

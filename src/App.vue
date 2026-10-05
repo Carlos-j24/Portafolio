@@ -17,8 +17,8 @@
     v-if="stage === 'welcome'"
   />
 
-  <!-- Home -->
-  <Home
+  <!-- Site (portada y blog) -->
+  <SiteLayout
     v-if="stage === 'home'"
   />
 
@@ -27,7 +27,7 @@
 <script setup>
 import { ref, onMounted, onUnmounted } from 'vue'
 
-import Home from './views/Home.vue'
+import SiteLayout from './components/SiteLayout.vue'
 import LoadingScreen from './components/LoadingScreen.vue'
 import WelcomeScreen from './components/WelcomeScreen.vue'
 import SystemFlash from './components/SystemFlash.vue'
@@ -41,7 +41,10 @@ const alreadyVisited = sessionStorage.getItem('intro-seen') === 'true'
 // Quien pide menos movimiento en su sistema va directo a Home, sin la intro animada
 const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
 
-const skipIntroOnLoad = alreadyVisited || prefersReducedMotion
+// Quien entra directo a un artículo (enlace compartido) tampoco ve la intro
+const landedOnHome = window.location.pathname === '/'
+
+const skipIntroOnLoad = alreadyVisited || prefersReducedMotion || !landedOnHome
 
 const stage = ref(skipIntroOnLoad ? 'home' : 'loading')
 

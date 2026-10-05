@@ -9,7 +9,8 @@ Portafolio personal desarrollado con Vue 3 y Vite, con estética de sistema/term
 - **Respeta `prefers-reduced-motion`**: sin intro animada y con animaciones reducidas para quien lo pida en su sistema.
 - **Diseño responsive**, con menú hamburguesa en móvil.
 - **Animaciones de scroll** con [`@vueuse/motion`](https://motion.vueuse.org/).
-- Secciones: Hero, Sobre mí, Habilidades (con la especialidad principal destacada), Proyectos, Terminal decorativa y Contacto (correo visible con botón de copiar).
+- Secciones: Hero, Sobre mí, Habilidades (con la especialidad principal destacada), Proyectos, Blog, Terminal decorativa y Contacto (correo visible con botón de copiar).
+- **Blog bilingüe** en Markdown: cada artículo tiene su página (`/blog/<slug>`) y se convierte a HTML al compilar, así que el navegador no descarga ningún lector de Markdown.
 - Iconos de correo, LinkedIn y GitHub en la barra de navegación; los datos de contacto viven en `src/data/contact.js`.
 - Metadata SEO y Open Graph (incluyendo imagen de preview personalizada) para compartir el link.
 
@@ -19,6 +20,8 @@ Portafolio personal desarrollado con Vue 3 y Vite, con estética de sistema/term
 - [Vite](https://vitejs.dev/)
 - [TailwindCSS](https://tailwindcss.com/)
 - [@vueuse/motion](https://motion.vueuse.org/)
+- [Vue Router](https://router.vuejs.org/) (portada y páginas del blog)
+- [marked](https://marked.js.org/) (solo en el build, para el Markdown del blog)
 
 ## 🚀 Desarrollo local
 
@@ -36,27 +39,55 @@ npm run build
 npm run preview
 ```
 
+## ✍️ Escribir un artículo
+
+1. Crea `content/blog/<slug>/es.md` y `content/blog/<slug>/en.md` (si falta un idioma, se muestra el otro).
+2. Empieza cada archivo con este front matter:
+
+   ```markdown
+   ---
+   title: "Título del artículo"
+   date: 2026-10-05
+   readingTime: 5
+   tags: [DevForge, IA]
+   summary: "Una o dos frases para la tarjeta y la descripción de la página."
+   ---
+   ```
+
+3. Escribe el cuerpo en Markdown, sin `#` de título: la página ya lo muestra. Las secciones van con `##`.
+
+El artículo aparece automáticamente en la sección Blog, ordenado por fecha (el más reciente primero).
+
 ## 📁 Estructura
 
 ```
+content/blog/<slug>/     # Artículos del blog (es.md y en.md)
+vite-plugin-blog.js      # Convierte los artículos a HTML al compilar
+vercel.json              # Sirve index.html en cualquier ruta (páginas del blog)
 src/
 ├── App.vue                 # Orquesta la intro (loading → flash → welcome → home)
 ├── main.js
+├── router.js               # Rutas (/ y /blog/:slug) y scroll a las secciones
 ├── style.css               # Tailwind + estilos compartidos (cuadrícula, animaciones)
 ├── i18n.js                 # Textos en inglés y español
 ├── composables/
 │   └── useLang.js           # Idioma compartido (detección, persistencia, textos)
 ├── data/
-│   └── projects.js          # Proyectos (image opcional para la captura)
+│   ├── projects.js          # Proyectos (image opcional para la captura)
+│   ├── contact.js           # Correo y redes
+│   └── posts.js             # Lista de artículos y carga de cada uno
 ├── components/
 │   ├── LoadingScreen.vue    # Pantalla de carga con barra de progreso y skip
 │   ├── SystemFlash.vue      # Efecto de transición
 │   ├── WelcomeScreen.vue    # Pantalla de bienvenida
+│   ├── SiteLayout.vue       # Fondo, cabecera y pie comunes a todas las páginas
 │   ├── CursorGlow.vue       # Brillo que sigue al cursor
 │   ├── AppHeader.vue        # Navegación, idioma y menú móvil
-│   └── sections/            # Hero, About, Skills, Projects, Terminal y Contact
+│   ├── SocialIcon.vue       # Iconos de correo, LinkedIn y GitHub
+│   └── sections/            # Hero, About, Skills, Projects, Blog, Terminal y Contact
 └── views/
-    └── Home.vue             # Monta cabecera, secciones y pie
+    ├── Home.vue             # Portada: todas las secciones
+    └── BlogPost.vue         # Página de un artículo
 ```
 
 ## 📦 Deploy
