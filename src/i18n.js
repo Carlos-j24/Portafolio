@@ -1,7 +1,7 @@
 // Textos de la interfaz en inglés y español
 export const translations = {
   en: {
-    nav: { home: 'Home', about: 'About', skills: 'Skills', projects: 'Projects', contact: 'Contact', menu: 'Open menu', close: 'Close menu' },
+    nav: { home: 'Home', about: 'About', skills: 'Skills', projects: 'Projects', blog: 'Blog', contact: 'Contact', menu: 'Open menu', close: 'Close menu' },
     hero: {
       booting: 'INITIALIZING DEVELOPER PROFILE...',
       greeting: "Hi, I'm",
@@ -41,6 +41,15 @@ export const translations = {
       liveDemo: 'Live Demo →',
       sourceCode: 'Source Code'
     },
+    blog: {
+      title: 'Blog & Notes',
+      subtitle: 'What I learn while building: decisions, mistakes and the way I work.',
+      readMore: 'Read article →',
+      minRead: 'min read',
+      back: '← Back to blog',
+      notFoundTitle: 'Article not found',
+      notFoundText: 'This article does not exist or has been moved.'
+    },
     terminal: {
       statusVal: 'System online',
       focusVal: 'Building scalable and meaningful software systems.'
@@ -57,7 +66,7 @@ export const translations = {
     footer: 'Built with precision • Designed for impact • Powered by Carlos'
   },
   es: {
-    nav: { home: 'Inicio', about: 'Sobre mí', skills: 'Habilidades', projects: 'Proyectos', contact: 'Contacto', menu: 'Abrir menú', close: 'Cerrar menú' },
+    nav: { home: 'Inicio', about: 'Sobre mí', skills: 'Habilidades', projects: 'Proyectos', blog: 'Blog', contact: 'Contacto', menu: 'Abrir menú', close: 'Cerrar menú' },
     hero: {
       booting: 'INICIALIZANDO PERFIL DE DESARROLLADOR...',
       greeting: 'Hola, soy',
@@ -96,6 +105,15 @@ export const translations = {
       subtitle: 'Sistemas reales construidos con arquitectura limpia, código mantenible y enfoque en el impacto.',
       liveDemo: 'Ver Demo →',
       sourceCode: 'Código Fuente'
+    },
+    blog: {
+      title: 'Blog y Notas',
+      subtitle: 'Lo que aprendo mientras construyo: decisiones, errores y mi forma de trabajar.',
+      readMore: 'Leer artículo →',
+      minRead: 'min de lectura',
+      back: '← Volver al blog',
+      notFoundTitle: 'Artículo no encontrado',
+      notFoundText: 'Este artículo no existe o se ha movido.'
     },
     terminal: {
       statusVal: 'Sistema en línea',
