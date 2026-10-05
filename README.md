@@ -7,9 +7,9 @@ Portafolio personal desarrollado con Vue 3 y Vite, con estética de sistema/term
 - **Intro tipo boot sequence** con barra de carga, flash de transición y pantalla de bienvenida — saltable con un botón, y no se repite en la misma sesión (`sessionStorage`).
 - **Selector de idioma EN/ES**: detecta el idioma del navegador, lo guarda en `localStorage` y sincroniza el atributo `lang` del HTML.
 - **Respeta `prefers-reduced-motion`**: sin intro animada y con animaciones reducidas para quien lo pida en su sistema.
-- **Diseño responsive**, con menú hamburguesa en móvil.
+- **Diseño responsive**, con menú hamburguesa por debajo de 1024 px.
 - **Animaciones de scroll** con [`@vueuse/motion`](https://motion.vueuse.org/).
-- Secciones: Hero, Sobre mí, Habilidades (con la especialidad principal destacada), Proyectos, Blog, Terminal decorativa y Contacto (correo visible con botón de copiar).
+- Secciones: Hero, Sobre mí, Habilidades (con la especialidad principal destacada), Trayectoria (línea de tiempo estilo log), Proyectos, Blog, Terminal decorativa y Contacto (correo visible con botón de copiar).
 - **Blog bilingüe** en Markdown: cada artículo tiene su página (`/blog/<slug>`) y se convierte a HTML al compilar, así que el navegador no descarga ningún lector de Markdown.
 - Iconos de correo, LinkedIn y GitHub en la barra de navegación; los datos de contacto viven en `src/data/contact.js`.
 - Metadata SEO y Open Graph (incluyendo imagen de preview personalizada) para compartir el link.
@@ -75,6 +75,7 @@ src/
 ├── data/
 │   ├── projects.js          # Proyectos (image opcional para la captura)
 │   ├── contact.js           # Correo y redes
+│   ├── journey.js           # Trayectoria: estudios, cursos, certificados, hackatones y experiencia
 │   └── posts.js             # Lista de artículos y carga de cada uno
 ├── components/
 │   ├── LoadingScreen.vue    # Pantalla de carga con barra de progreso y skip
@@ -84,7 +85,7 @@ src/
 │   ├── CursorGlow.vue       # Brillo que sigue al cursor
 │   ├── AppHeader.vue        # Navegación, idioma y menú móvil
 │   ├── SocialIcon.vue       # Iconos de correo, LinkedIn y GitHub
-│   └── sections/            # Hero, About, Skills, Projects, Blog, Terminal y Contact
+│   └── sections/            # Hero, About, Skills, Journey, Projects, Blog, Terminal y Contact
 └── views/
     ├── Home.vue             # Portada: todas las secciones
     └── BlogPost.vue         # Página de un artículo
