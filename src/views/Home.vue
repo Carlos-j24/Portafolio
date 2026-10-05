@@ -11,7 +11,7 @@
     }"
   ></div>
 
-  <div class="min-h-screen bg-[#0B0F14] text-gray-200 flex flex-col relative overflow-x-hidden">
+  <div class="min-h-screen bg-[#0B0F14] text-gray-200 flex flex-col relative overflow-x-clip">
 
     <!-- ENGINEERING GRID -->
     <div class="absolute inset-0 opacity-[0.04]">
@@ -29,7 +29,7 @@
 
       <!-- NAVBAR -->
       <header
-        class="relative flex justify-between items-center px-4 md:px-8 py-6 border-b border-white/5 backdrop-blur sticky top-0 bg-[#0B0F14]/60 z-50"
+        class="flex justify-between items-center px-4 md:px-8 py-6 border-b border-white/5 backdrop-blur sticky top-0 bg-[#0B0F14]/60 z-50"
       >
         <div class="text-xs sm:text-sm tracking-widest text-gray-400 animate-fade-in truncate">
           CARLOS.DEV // SYSTEM ONLINE
@@ -111,7 +111,7 @@
       <!-- HERO -->
       <section
         id="home"
-        class="flex-1 flex items-center justify-center px-6 py-24"
+        class="flex-1 flex items-center justify-center px-6 py-24 scroll-mt-24"
       >
         <div class="text-center max-w-3xl">
 
@@ -126,7 +126,7 @@
           </div>
 
           <p class="text-emerald-400 text-sm tracking-widest mb-4 animate-pulse">
-            INITIALIZING DEVELOPER PROFILE...
+            {{ t.hero.booting }}
           </p>
 
           <h1 class="text-4xl md:text-6xl font-light leading-tight animate-fade-in-up">
@@ -194,7 +194,7 @@
             duration: 800
           }
         }"
-        class="px-8 py-24 border-t border-white/5"
+        class="px-8 py-24 border-t border-white/5 scroll-mt-24"
       >
         <div class="max-w-4xl mx-auto">
 
@@ -256,7 +256,7 @@
             duration: 1000
           }
         }"
-        class="px-8 py-24 border-t border-white/5"
+        class="px-8 py-24 border-t border-white/5 scroll-mt-24"
       >
         <div class="max-w-5xl mx-auto">
 
@@ -314,7 +314,7 @@
             duration: 1000
           }
         }"
-        class="px-8 py-24 border-t border-white/5"
+        class="px-8 py-24 border-t border-white/5 scroll-mt-24"
       >
         <div class="max-w-5xl mx-auto">
 
@@ -411,7 +411,7 @@
             duration: 1000
           }
         }"
-        class="px-8 py-24 border-t border-white/5"
+        class="px-8 py-24 border-t border-white/5 scroll-mt-24"
       >
         <div class="max-w-4xl mx-auto">
 
@@ -475,7 +475,7 @@
             duration: 800
           }
         }"
-        class="px-8 py-24 border-t border-white/5"
+        class="px-8 py-24 border-t border-white/5 scroll-mt-24"
       >
         <div class="max-w-3xl mx-auto text-center">
 
@@ -535,7 +535,9 @@ const mouseX = ref(0)
 const mouseY = ref(0)
 const mobileMenuOpen = ref(false)
 
-const lang = ref(localStorage.getItem('portfolio-lang') || 'en')
+const browserLang = navigator.language?.toLowerCase().startsWith('es') ? 'es' : 'en'
+
+const lang = ref(localStorage.getItem('portfolio-lang') || browserLang)
 
 const toggleLang = () => {
   lang.value = lang.value === 'en' ? 'es' : 'en'
@@ -547,6 +549,7 @@ const translations = {
   en: {
     nav: { home: 'Home', about: 'About', skills: 'Skills', projects: 'Projects', contact: 'Contact', menu: 'Open menu', close: 'Close menu' },
     hero: {
+      booting: 'INITIALIZING DEVELOPER PROFILE...',
       greeting: "Hi, I'm",
       role: 'Full Stack Developer',
       description: 'I build reliable, scalable and well-structured systems with a focus on clean architecture, real-world impact and thoughtful user experience.',
@@ -599,6 +602,7 @@ const translations = {
   es: {
     nav: { home: 'Inicio', about: 'Sobre mí', skills: 'Habilidades', projects: 'Proyectos', contact: 'Contacto', menu: 'Abrir menú', close: 'Cerrar menú' },
     hero: {
+      booting: 'INICIALIZANDO PERFIL DE DESARROLLADOR...',
       greeting: 'Hola, soy',
       role: 'Full Stack Developer',
       description: 'Construyo sistemas confiables, escalables y bien estructurados, con enfoque en arquitectura limpia, impacto real y una experiencia de usuario cuidada.',
@@ -669,10 +673,10 @@ const projects = [
   {
     title: 'DevForge',
     description: {
-      en: 'Personal AI-powered development ecosystem that automates repetitive tasks and organizes tooling, documentation and workflows around modern software engineering practices.',
-      es: 'Ecosistema de desarrollo personal potenciado por IA que automatiza tareas repetitivas y organiza herramientas, documentación y flujos de trabajo bajo buenas prácticas de ingeniería de software.'
+      en: 'Personal development ecosystem in PowerShell. DevForge Doctor diagnoses the dev environment (console or JSON report) and DevForge Init sets up an AI-agent harness (AGENTS.md, CLAUDE.md, MEMORY.md) in other projects. Built with Spec-Driven Development, automated Pester tests and CI on every PR.',
+      es: 'Ecosistema de desarrollo personal en PowerShell. DevForge Doctor diagnostica el entorno de desarrollo (en consola o en JSON) y DevForge Init instala un arnés para agentes de IA (AGENTS.md, CLAUDE.md, MEMORY.md) en otros proyectos. Hecho con Spec-Driven Development, tests automatizados en Pester y CI en cada PR.'
     },
-    stack: ['Python', 'TypeScript', 'Vue.js', 'Django', 'Docker', 'PostgreSQL'],
+    stack: ['PowerShell 7', 'Pester', 'GitHub Actions', 'Spec-Driven Development', 'AI Agents'],
     status: { en: 'In Development', es: 'En Desarrollo' },
     statusClass: 'text-amber-400 border-amber-400/30 bg-amber-400/10',
     accent: 'from-amber-500 to-orange-400',
@@ -738,11 +742,11 @@ onUnmounted(() => {
 }
 
 .animate-fade-in-up {
-  animation: fade-in-up 0.8s ease-out forwards;
+  animation: fade-in-up 0.8s ease-out both;
 }
 
 .animate-fade-in {
-  animation: fade-in-up 1s ease-out forwards;
+  animation: fade-in-up 1s ease-out both;
 }
 
 .delay-150 {

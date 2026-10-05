@@ -5,7 +5,8 @@ Portafolio personal desarrollado con Vue 3 y Vite, con estética de sistema/term
 ## ✨ Características
 
 - **Intro tipo boot sequence** con barra de carga, flash de transición y pantalla de bienvenida — saltable con un botón, y no se repite en la misma sesión (`sessionStorage`).
-- **Selector de idioma EN/ES** con persistencia en `localStorage` y sincronización del atributo `lang` del HTML.
+- **Selector de idioma EN/ES**: detecta el idioma del navegador, lo guarda en `localStorage` y sincroniza el atributo `lang` del HTML.
+- **Respeta `prefers-reduced-motion`**: sin intro animada y con animaciones reducidas para quien lo pida en su sistema.
 - **Diseño responsive**, con menú hamburguesa en móvil.
 - **Animaciones de scroll** con [`@vueuse/motion`](https://motion.vueuse.org/).
 - Secciones: Hero, Sobre mí, Habilidades, Proyectos, Terminal decorativa y Contacto.
@@ -50,7 +51,7 @@ src/
 
 ## 📦 Deploy
 
-Pensado para desplegar el frontend en [Vercel](https://vercel.com) (build command `npm run build`, output `dist`).
+Desplegado en [Vercel](https://vercel.com): https://portafolio-goap.vercel.app (build command `npm run build`, output `dist`). Si cambia el dominio, actualiza las URLs absolutas de `index.html` (canonical, `og:url` y `og:image`).
 
 ## 📬 Contacto
 
