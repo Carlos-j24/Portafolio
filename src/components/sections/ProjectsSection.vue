@@ -41,6 +41,8 @@
             v-if="project.image"
             :src="project.image"
             :alt="project.title"
+            width="1200"
+            height="675"
             loading="lazy"
             class="w-full aspect-video object-cover border-b border-white/10"
           />
