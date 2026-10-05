@@ -9,7 +9,8 @@ Portafolio personal desarrollado con Vue 3 y Vite, con estética de sistema/term
 - **Respeta `prefers-reduced-motion`**: sin intro animada y con animaciones reducidas para quien lo pida en su sistema.
 - **Diseño responsive**, con menú hamburguesa en móvil.
 - **Animaciones de scroll** con [`@vueuse/motion`](https://motion.vueuse.org/).
-- Secciones: Hero, Sobre mí, Habilidades, Proyectos, Terminal decorativa y Contacto.
+- Secciones: Hero, Sobre mí, Habilidades (con la especialidad principal destacada), Proyectos, Terminal decorativa y Contacto (correo visible con botón de copiar).
+- Iconos de correo, LinkedIn y GitHub en la barra de navegación; los datos de contacto viven en `src/data/contact.js`.
 - Metadata SEO y Open Graph (incluyendo imagen de preview personalizada) para compartir el link.
 
 ## 🛠️ Stack

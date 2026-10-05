@@ -30,11 +30,25 @@
         <div
           v-for="group in t.skills.groups"
           :key="group.title"
-          class="bg-white/5 border border-white/10 rounded-xl p-6 hover:scale-105 transition"
+          class="relative rounded-xl p-6 hover:scale-105 transition border"
+          :class="group.primary
+            ? 'bg-emerald-400/[0.04] border-emerald-400/40 shadow-[0_0_40px_-12px_rgba(52,211,153,0.35)]'
+            : 'bg-white/5 border-white/10'"
         >
+          <span
+            v-if="group.primary"
+            class="inline-flex items-center gap-1.5 mb-3 text-[11px] tracking-widest uppercase text-emerald-400 border border-emerald-400/30 bg-emerald-400/10 rounded-full px-2.5 py-1"
+          >
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+            {{ t.skills.primaryBadge }}
+          </span>
+
           <h3 class="text-white mb-4">{{ group.title }}</h3>
 
-          <ul class="space-y-2 text-gray-400 text-sm">
+          <ul
+            class="space-y-2 text-sm"
+            :class="group.primary ? 'text-gray-300' : 'text-gray-400'"
+          >
             <li v-for="item in group.items" :key="item">{{ item }}</li>
           </ul>
         </div>

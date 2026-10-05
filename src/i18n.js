@@ -27,9 +27,10 @@ export const translations = {
     },
     skills: {
       title: 'Engineering Skills',
+      primaryBadge: 'Main specialty',
       subtitle: 'Structured view of my technical capabilities organized by system layers and engineering focus.',
       groups: [
-        { title: 'Backend Systems', items: ['Python (Advanced)', 'Django (Advanced)', 'REST APIs', 'PostgreSQL', 'System Design'] },
+        { title: 'Backend Systems', primary: true, items: ['Python (Advanced)', 'Django (Advanced)', 'REST APIs', 'PostgreSQL', 'System Design'] },
         { title: 'Frontend Engineering', items: ['Vue 3', 'TailwindCSS', 'Responsive UI', 'Component Architecture', 'UX Principles'] },
         { title: 'Engineering Tools', items: ['Git & GitHub', 'Linux Basics', 'Docker (Learning)', 'CI/CD Concepts', 'Agile Workflow'] }
       ]
@@ -48,6 +49,8 @@ export const translations = {
       title: "Let's Build Something",
       subtitle: 'Open to new opportunities and collaborations. Reach out through any of these channels.',
       email: 'Send an Email',
+      copy: 'Copy email',
+      copied: 'Copied!',
       github: 'GitHub',
       linkedin: 'LinkedIn'
     },
@@ -80,9 +83,10 @@ export const translations = {
     },
     skills: {
       title: 'Habilidades Técnicas',
+      primaryBadge: 'Especialidad principal',
       subtitle: 'Vista estructurada de mis capacidades técnicas, organizadas por capas del sistema y enfoque de ingeniería.',
       groups: [
-        { title: 'Sistemas Backend', items: ['Python (Avanzado)', 'Django (Avanzado)', 'APIs REST', 'PostgreSQL', 'Diseño de Sistemas'] },
+        { title: 'Sistemas Backend', primary: true, items: ['Python (Avanzado)', 'Django (Avanzado)', 'APIs REST', 'PostgreSQL', 'Diseño de Sistemas'] },
         { title: 'Ingeniería Frontend', items: ['Vue 3', 'TailwindCSS', 'UI Responsiva', 'Arquitectura de Componentes', 'Principios UX'] },
         { title: 'Herramientas de Ingeniería', items: ['Git y GitHub', 'Fundamentos de Linux', 'Docker (Aprendiendo)', 'Conceptos de CI/CD', 'Flujo de trabajo Ágil'] }
       ]
@@ -101,6 +105,8 @@ export const translations = {
       title: 'Construyamos Algo',
       subtitle: 'Abierto a nuevas oportunidades y colaboraciones. Escríbeme por cualquiera de estos canales.',
       email: 'Enviar un Correo',
+      copy: 'Copiar correo',
+      copied: '¡Copiado!',
       github: 'GitHub',
       linkedin: 'LinkedIn'
     },
