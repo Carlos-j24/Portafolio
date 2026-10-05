@@ -18,6 +18,21 @@
         </a>
       </nav>
 
+      <div class="hidden sm:flex items-center gap-3 md:pl-6 md:border-l md:border-white/10">
+        <a
+          v-for="social in socialLinks"
+          :key="social.name"
+          :href="social.href"
+          :target="social.external ? '_blank' : null"
+          :rel="social.external ? 'noopener noreferrer' : null"
+          :aria-label="social.label"
+          :title="social.label"
+          class="w-4 h-4 text-gray-400 hover:text-white transition"
+        >
+          <SocialIcon :name="social.name" />
+        </a>
+      </div>
+
       <button
         class="text-xs tracking-widest text-gray-400 hover:text-white transition border border-white/10 hover:border-white/30 rounded-full px-3 py-1.5 shrink-0"
         @click="toggleLang"
@@ -52,26 +67,47 @@
       class="md:hidden absolute top-full left-0 right-0 flex flex-col gap-1 bg-[#0B0F14]/95 border-b border-white/5 backdrop-blur px-4 py-4 text-sm text-gray-400"
     >
       <a
-        v-for="(link, index) in links"
+        v-for="link in links"
         :key="link"
         :href="`#${link}`"
-        class="py-3 hover:text-white transition"
-        :class="index < links.length - 1 ? 'border-b border-white/5' : ''"
+        class="py-3 border-b border-white/5 hover:text-white transition"
         @click="mobileMenuOpen = false"
       >
         {{ t.nav[link] }}
       </a>
+
+      <div class="flex gap-6 pt-4">
+        <a
+          v-for="social in socialLinks"
+          :key="social.name"
+          :href="social.href"
+          :target="social.external ? '_blank' : null"
+          :rel="social.external ? 'noopener noreferrer' : null"
+          :aria-label="social.label"
+          class="w-5 h-5 text-gray-400 hover:text-white transition"
+        >
+          <SocialIcon :name="social.name" />
+        </a>
+      </div>
     </nav>
   </header>
 </template>
 
 <script setup>
 import { ref } from 'vue'
+import SocialIcon from './SocialIcon.vue'
 import { useLang } from '../composables/useLang.js'
+import { email, socials } from '../data/contact.js'
 
 const { lang, t, toggleLang } = useLang()
 
 const mobileMenuOpen = ref(false)
 
 const links = ['home', 'about', 'skills', 'projects', 'contact']
+
+const socialLinks = [
+  { name: 'email', label: email, href: `mailto:${email}`, external: false },
+  { name: 'linkedin', label: 'LinkedIn', href: socials.linkedin, external: true },
+  { name: 'github', label: 'GitHub', href: socials.github, external: true }
+]
 </script>
