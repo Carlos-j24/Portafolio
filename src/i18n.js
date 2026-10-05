@@ -1,7 +1,7 @@
 // Textos de la interfaz en inglés y español
 export const translations = {
   en: {
-    nav: { home: 'Home', about: 'About', skills: 'Skills', projects: 'Projects', blog: 'Blog', contact: 'Contact', menu: 'Open menu', close: 'Close menu' },
+    nav: { home: 'Home', about: 'About', skills: 'Skills', journey: 'Journey', projects: 'Projects', blog: 'Blog', contact: 'Contact', menu: 'Open menu', close: 'Close menu' },
     hero: {
       booting: 'INITIALIZING DEVELOPER PROFILE...',
       greeting: "Hi, I'm",
@@ -35,6 +35,14 @@ export const translations = {
         { title: 'Engineering Tools', items: ['Git & GitHub', 'Linux Basics', 'Docker (Learning)', 'CI/CD Concepts', 'Agile Workflow'] }
       ]
     },
+    journey: {
+      title: 'Journey',
+      subtitle: 'The education and training that shaped how I build software, most recent first.',
+      present: 'present',
+      active: 'IN PROGRESS',
+      credential: 'View credential →',
+      types: { edu: 'EDU', course: 'COURSE', cert: 'CERT', hack: 'HACK', work: 'WORK' }
+    },
     projectsSection: {
       title: 'Selected Projects',
       subtitle: 'Real-world systems built with clean architecture, maintainable code and focus on impact.',
@@ -66,7 +74,7 @@ export const translations = {
     footer: 'Built with precision • Designed for impact • Powered by Carlos'
   },
   es: {
-    nav: { home: 'Inicio', about: 'Sobre mí', skills: 'Habilidades', projects: 'Proyectos', blog: 'Blog', contact: 'Contacto', menu: 'Abrir menú', close: 'Cerrar menú' },
+    nav: { home: 'Inicio', about: 'Sobre mí', skills: 'Habilidades', journey: 'Trayectoria', projects: 'Proyectos', blog: 'Blog', contact: 'Contacto', menu: 'Abrir menú', close: 'Cerrar menú' },
     hero: {
       booting: 'INICIALIZANDO PERFIL DE DESARROLLADOR...',
       greeting: 'Hola, soy',
@@ -99,6 +107,14 @@ export const translations = {
         { title: 'Ingeniería Frontend', items: ['Vue 3', 'TailwindCSS', 'UI Responsiva', 'Arquitectura de Componentes', 'Principios UX'] },
         { title: 'Herramientas de Ingeniería', items: ['Git y GitHub', 'Fundamentos de Linux', 'Docker (Aprendiendo)', 'Conceptos de CI/CD', 'Flujo de trabajo Ágil'] }
       ]
+    },
+    journey: {
+      title: 'Trayectoria',
+      subtitle: 'La formación que ha dado forma a mi manera de construir software, de la más reciente a la más antigua.',
+      present: 'actual',
+      active: 'EN CURSO',
+      credential: 'Ver credencial →',
+      types: { edu: 'EDU', course: 'CURSO', cert: 'CERT', hack: 'HACK', work: 'TRABAJO' }
     },
     projectsSection: {
       title: 'Proyectos Destacados',

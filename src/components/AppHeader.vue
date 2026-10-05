@@ -10,8 +10,8 @@
       CARLOS.DEV // SYSTEM ONLINE
     </RouterLink>
 
-    <div class="flex items-center gap-3 md:gap-6">
-      <nav class="hidden md:flex gap-6 text-sm text-gray-400">
+    <div class="flex items-center gap-3 lg:gap-6">
+      <nav class="hidden lg:flex gap-6 text-sm text-gray-400">
         <RouterLink
           v-for="link in links"
           :key="link"
@@ -23,7 +23,7 @@
         </RouterLink>
       </nav>
 
-      <div class="hidden sm:flex items-center gap-3 md:pl-6 md:border-l md:border-white/10">
+      <div class="hidden sm:flex items-center gap-3 lg:pl-6 lg:border-l lg:border-white/10">
         <a
           v-for="social in socialLinks"
           :key="social.name"
@@ -46,7 +46,7 @@
       </button>
 
       <button
-        class="md:hidden flex flex-col justify-center gap-1.5 w-8 h-8 shrink-0"
+        class="lg:hidden flex flex-col justify-center gap-1.5 w-8 h-8 shrink-0"
         :aria-label="mobileMenuOpen ? t.nav.close : t.nav.menu"
         :aria-expanded="mobileMenuOpen"
         @click="mobileMenuOpen = !mobileMenuOpen"
@@ -69,7 +69,7 @@
     <!-- MOBILE MENU -->
     <nav
       v-if="mobileMenuOpen"
-      class="md:hidden absolute top-full left-0 right-0 flex flex-col gap-1 bg-[#0B0F14]/95 border-b border-white/5 backdrop-blur px-4 py-4 text-sm text-gray-400"
+      class="lg:hidden absolute top-full left-0 right-0 flex flex-col gap-1 bg-[#0B0F14]/95 border-b border-white/5 backdrop-blur px-4 py-4 text-sm text-gray-400"
     >
       <RouterLink
         v-for="link in links"
@@ -109,7 +109,7 @@ const { lang, t, toggleLang } = useLang()
 
 const mobileMenuOpen = ref(false)
 
-const links = ['home', 'about', 'skills', 'projects', 'blog', 'contact']
+const links = ['home', 'about', 'skills', 'journey', 'projects', 'blog', 'contact']
 
 const socialLinks = [
   { name: 'email', label: email, href: `mailto:${email}`, external: false },
