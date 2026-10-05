@@ -1,3 +1,50 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Cuadrícula de fondo compartida por LoadingScreen y Home */
+.engineering-grid {
+  background-image:
+    linear-gradient(rgba(255,255,255,0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.06) 1px, transparent 1px);
+
+  background-size: 40px 40px;
+}
+
+.engineering-grid--faded {
+  mask-image:
+    radial-gradient(circle at center, black 30%, transparent 90%);
+}
+
+@keyframes fade-in-up {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fade-in-up 0.8s ease-out both;
+}
+
+.animate-fade-in {
+  animation: fade-in-up 1s ease-out both;
+}
+
+/* anim-delay-* y no delay-*: Tailwind ya usa delay-* para transition-delay */
+.anim-delay-150 {
+  animation-delay: 150ms;
+}
+
+.anim-delay-300 {
+  animation-delay: 300ms;
+}
+
+.anim-delay-500 {
+  animation-delay: 500ms;
+}
