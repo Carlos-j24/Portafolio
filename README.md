@@ -58,12 +58,14 @@ npm run preview
 
 El artículo aparece automáticamente en la sección Blog, ordenado por fecha (el más reciente primero).
 
+Al compilar se genera además `dist/blog/<slug>.html` con el título, la descripción y los datos Open Graph del artículo **en español** (`PREVIEW_LANG` en `vite-plugin-blog.js`), para que las vistas previas de LinkedIn, WhatsApp o X muestren el artículo y no la portada. Para una imagen propia, añade `image: /ruta-en-public.png` (1200×630) al front matter; si no, se usa `og-image.png`.
+
 ## 📁 Estructura
 
 ```
 content/blog/<slug>/     # Artículos del blog (es.md y en.md)
 vite-plugin-blog.js      # Convierte los artículos a HTML al compilar
-vercel.json              # Sirve index.html en cualquier ruta (páginas del blog)
+vercel.json              # cleanUrls (/blog/<slug> → blog/<slug>.html) y el resto de rutas a index.html
 src/
 ├── App.vue                 # Orquesta la intro (loading → flash → welcome → home)
 ├── main.js
