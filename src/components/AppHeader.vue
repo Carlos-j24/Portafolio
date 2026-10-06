@@ -1,6 +1,6 @@
 <template>
   <header
-    class="flex justify-between items-center gap-6 px-4 md:px-8 py-6 border-b border-white/5 backdrop-blur sticky top-0 bg-[#0B0F14]/60 z-50"
+    class="flex justify-between items-center gap-6 px-4 md:px-8 py-6 border-b border-white/5 backdrop-blur-sm sticky top-0 bg-[#0B0F14]/60 z-50"
   >
     <RouterLink
       :to="{ path: '/', hash: '#home' }"
@@ -69,7 +69,7 @@
     <!-- MOBILE MENU -->
     <nav
       v-if="mobileMenuOpen"
-      class="xl:hidden absolute top-full left-0 right-0 flex flex-col gap-1 bg-[#0B0F14]/95 border-b border-white/5 backdrop-blur px-4 py-4 text-sm text-gray-400"
+      class="xl:hidden absolute top-full left-0 right-0 flex flex-col gap-1 bg-[#0B0F14]/95 border-b border-white/5 backdrop-blur-sm px-4 py-4 text-sm text-gray-400"
     >
       <RouterLink
         v-for="link in links"

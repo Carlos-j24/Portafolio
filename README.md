@@ -19,7 +19,7 @@ Portafolio personal desarrollado con Vue 3 y Vite, con estética de sistema/term
 
 - [Vue 3](https://vuejs.org/) (`<script setup>`)
 - [Vite](https://vitejs.dev/)
-- [TailwindCSS](https://tailwindcss.com/)
+- [Tailwind CSS 4](https://tailwindcss.com/) (configuración en `src/style.css`, vía `@tailwindcss/postcss`)
 - [@vueuse/motion](https://motion.vueuse.org/)
 - [Vue Router](https://router.vuejs.org/) (portada y páginas del blog)
 - [marked](https://marked.js.org/) (solo en el build, para el Markdown del blog)

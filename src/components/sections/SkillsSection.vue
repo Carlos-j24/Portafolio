@@ -32,7 +32,7 @@
           :key="group.title"
           class="relative rounded-xl p-6 hover:scale-105 transition border"
           :class="group.primary
-            ? 'bg-emerald-400/[0.04] border-emerald-400/40 shadow-[0_0_40px_-12px_rgba(52,211,153,0.35)]'
+            ? 'bg-emerald-400/4 border-emerald-400/40 shadow-[0_0_40px_-12px_rgba(52,211,153,0.35)]'
             : 'bg-white/5 border-white/10'"
         >
           <span

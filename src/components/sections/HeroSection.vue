@@ -19,7 +19,7 @@
         {{ t.hero.booting }}
       </p>
 
-      <h1 class="text-4xl md:text-6xl font-light leading-tight animate-fade-in-up">
+      <h1 class="text-4xl md:text-6xl font-light leading-tight md:leading-none animate-fade-in-up">
         {{ t.hero.greeting }} <span class="text-white font-medium">Carlos</span>
         <br />
         {{ t.hero.role }}

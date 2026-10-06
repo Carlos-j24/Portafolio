@@ -43,7 +43,7 @@
           class="h-3 bg-white/10 rounded-full overflow-hidden"
         >
           <div
-            class="h-full bg-gradient-to-r from-blue-500 to-emerald-400 transition-all duration-100"
+            class="h-full bg-linear-to-r from-blue-500 to-emerald-400 transition-all duration-100"
             :style="{ width: progress + '%' }"
           ></div>
         </div>
