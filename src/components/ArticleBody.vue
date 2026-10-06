@@ -140,7 +140,7 @@ defineProps({
 .article-content :deep(p:has(> img) + p > em:only-child) {
   display: block;
   margin-top: -0.75rem;
-  color: rgb(107 114 128);
+  color: rgb(156 163 175);
   font-size: 0.875rem;
   font-style: normal;
   text-align: center;

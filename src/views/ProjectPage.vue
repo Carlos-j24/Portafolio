@@ -12,7 +12,7 @@
       <template v-if="project">
 
         <header class="mb-12 animate-fade-in-up">
-          <p class="font-mono text-xs text-gray-500 mb-4">
+          <p class="font-mono text-xs text-gray-400 mb-4">
             <span class="text-emerald-400 mr-1.5">></span>{{ project.period }}<template v-if="project.role"> · {{ project.role }}</template>
           </p>
 
@@ -68,7 +68,7 @@
             :to="{ name: 'project', params: { slug: next.slug } }"
             class="group block"
           >
-            <span class="block font-mono text-xs text-gray-500 mb-2">
+            <span class="block font-mono text-xs text-gray-400 mb-2">
               {{ t.projectPage.next }}
             </span>
             <span class="text-xl text-white group-hover:text-emerald-300 transition">

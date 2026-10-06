@@ -33,7 +33,7 @@
           :to="{ name: 'post', params: { slug: post.slug } }"
           class="group flex flex-col bg-white/5 border border-white/10 rounded-xl p-6 hover:scale-[1.02] hover:border-white/20 transition"
         >
-          <p class="font-mono text-xs text-gray-500 mb-3">
+          <p class="font-mono text-xs text-gray-400 mb-3">
             <span class="text-emerald-400">></span>
             {{ formatDate(post.date, lang) }}
             <span v-if="post.readingTime"> · {{ post.readingTime }} {{ t.blog.minRead }}</span>
