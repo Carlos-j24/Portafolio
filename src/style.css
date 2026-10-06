@@ -1,6 +1,25 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss';
+
+/*
+  Compatibilidad con Tailwind 3 (guía oficial de migración a v4):
+  - En v4 el color de borde por defecto es `currentcolor`; aquí se mantiene el gris de v3.
+    Para quitarlo, cada `border` sin color tendría que llevar una clase de color explícita.
+  - En v4 los botones usan `cursor: default`; aquí vuelven a mostrar la mano.
+*/
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentcolor);
+  }
+
+  button:not(:disabled),
+  [role='button']:not(:disabled) {
+    cursor: pointer;
+  }
+}
 
 /* Cuadrícula de fondo compartida por LoadingScreen y Home */
 .engineering-grid {

@@ -18,7 +18,7 @@
             <span v-if="post.readingTime"> · {{ post.readingTime }} {{ t.blog.minRead }}</span>
           </p>
 
-          <h1 class="text-3xl md:text-5xl font-light text-white leading-tight">
+          <h1 class="text-3xl md:text-5xl font-light text-white leading-tight md:leading-none">
             {{ post.title }}
           </h1>
 

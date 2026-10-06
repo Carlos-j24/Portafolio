@@ -34,7 +34,7 @@
         >
           <!-- Punto de la línea de tiempo -->
           <span
-            class="absolute -left-[5px] top-1.5 w-2.5 h-2.5 rounded-full ring-4 ring-[#0B0F14]"
+            class="absolute left-[-5px] top-1.5 w-2.5 h-2.5 rounded-full ring-4 ring-[#0B0F14]"
             :class="entry.end ? 'bg-gray-500' : 'bg-emerald-400 animate-pulse'"
           ></span>
 
@@ -47,7 +47,7 @@
             </span>
 
             <span
-              class="tracking-widest border rounded px-1.5 py-0.5"
+              class="tracking-widest border rounded-sm px-1.5 py-0.5"
               :class="typeClass[entry.type]"
             >
               {{ t.journey.types[entry.type] }}

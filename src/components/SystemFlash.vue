@@ -1,6 +1,6 @@
 <template>
   <div
-    class="fixed inset-0 z-[9999] pointer-events-none flash"
+    class="fixed inset-0 z-9999 pointer-events-none flash"
   ></div>
 </template>
 

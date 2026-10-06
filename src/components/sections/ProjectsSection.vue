@@ -33,7 +33,7 @@
           class="group bg-white/5 border border-white/10 rounded-xl overflow-hidden hover:scale-[1.02] transition"
         >
           <div
-            class="h-2 bg-gradient-to-r"
+            class="h-2 bg-linear-to-r"
             :class="project.accent"
           ></div>
 
