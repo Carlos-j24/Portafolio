@@ -13,6 +13,7 @@ Portafolio personal desarrollado con Vue 3 y Vite, con estética de sistema/term
 - **Blog bilingüe** en Markdown: cada artículo tiene su página (`/blog/<slug>`) y se convierte a HTML al compilar, así que el navegador no descarga ningún lector de Markdown.
 - Iconos de correo, LinkedIn y GitHub en la barra de navegación; los datos de contacto viven en `src/data/contact.js`.
 - Metadata SEO y Open Graph (incluyendo imagen de preview personalizada) para compartir el link.
+- **SEO generado al compilar**: `sitemap.xml` (portada y artículos), `robots.txt` y datos estructurados JSON-LD (`Person` en todas las páginas, `BlogPosting` en cada artículo).
 
 ## 🛠️ Stack
 
@@ -64,7 +65,7 @@ Al compilar se genera además `dist/blog/<slug>.html` con el título, la descrip
 
 ```
 content/blog/<slug>/     # Artículos del blog (es.md y en.md)
-vite-plugin-blog.js      # Convierte los artículos a HTML al compilar
+vite-plugin-blog.js      # Artículos a HTML, páginas de vista previa, sitemap, robots y JSON-LD
 vercel.json              # cleanUrls (/blog/<slug> → blog/<slug>.html) y el resto de rutas a index.html
 src/
 ├── App.vue                 # Orquesta la intro (loading → flash → welcome → home)

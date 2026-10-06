@@ -1,6 +1,7 @@
 import fs from 'node:fs'
 import path from 'node:path'
 import { marked } from 'marked'
+import { email, socials } from './src/data/contact.js'
 
 // Convierte los artículos de content/blog/<slug>/<idioma>.md en módulos JS al compilar:
 // ?meta exporta el front matter (meta) y ?html el cuerpo ya convertido (html), en módulos
@@ -107,8 +108,59 @@ const renderPostPage = (indexHtml, siteUrl, slug, lang, data) => {
     ...(data.tags ?? []).map((tag) => `<meta property="article:tag" content="${escapeAttr(tag)}" />`)
   ]
 
-  return html.replace('</head>', `  ${articleTags.join('\n    ')}\n  </head>`)
+  const blogPosting = {
+    '@context': 'https://schema.org',
+    '@type': 'BlogPosting',
+    headline: data.title,
+    description: data.summary,
+    datePublished: data.date,
+    inLanguage: lang,
+    url,
+    mainEntityOfPage: url,
+    image: image ?? `${siteUrl}/og-image.png`,
+    keywords: (data.tags ?? []).join(', '),
+    author: { '@type': 'Person', name: 'Carlos Castro', url: `${siteUrl}/` }
+  }
+
+  return html.replace('</head>', `  ${articleTags.join('\n    ')}\n    ${jsonLd(blogPosting)}\n  </head>`)
 }
+
+// <script type="application/ld+json"> seguro dentro de HTML (sin "</script>" en el JSON)
+const jsonLd = (data) =>
+  `<script type="application/ld+json">${JSON.stringify(data).replace(/</g, '\\u003c')}</script>`
+
+// Datos estructurados de la persona (portada y artículos): Google entiende quién es el autor
+const personJsonLd = (siteUrl) =>
+  jsonLd({
+    '@context': 'https://schema.org',
+    '@type': 'Person',
+    name: 'Carlos Castro',
+    alternateName: 'Carlos José Castro López',
+    jobTitle: 'Full Stack Developer',
+    url: `${siteUrl}/`,
+    image: `${siteUrl}/avatar.jpg`,
+    email: `mailto:${email}`,
+    sameAs: [socials.github, socials.linkedin],
+    knowsAbout: ['Python', 'Django', 'Vue.js', 'React', 'PowerShell', 'Spec-Driven Development']
+  })
+
+const sitemapXml = (siteUrl, posts) => {
+  const today = new Date().toISOString().slice(0, 10)
+  const urls = [
+    { loc: `${siteUrl}/`, lastmod: today },
+    ...posts.map((post) => ({ loc: `${siteUrl}/blog/${post.slug}`, lastmod: post.data.date }))
+  ]
+
+  return [
+    '<?xml version="1.0" encoding="UTF-8"?>',
+    '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">',
+    ...urls.map((u) => `  <url><loc>${u.loc}</loc><lastmod>${u.lastmod}</lastmod></url>`),
+    '</urlset>',
+    ''
+  ].join('\n')
+}
+
+const robotsTxt = (siteUrl) => `User-agent: *\nAllow: /\n\nSitemap: ${siteUrl}/sitemap.xml\n`
 
 export default function blogPlugin() {
   let config
@@ -120,30 +172,43 @@ export default function blogPlugin() {
       config = resolved
     },
 
-    // Tras el build: dist/blog/<slug>.html por artículo (Vercel lo sirve en /blog/<slug>
-    // gracias a cleanUrls). El visitante ve lo mismo: la app arranca y pinta el artículo.
+    // Tras el build:
+    // - index.html con los datos estructurados de la persona (JSON-LD)
+    // - dist/blog/<slug>.html por artículo (Vercel lo sirve en /blog/<slug> gracias a
+    //   cleanUrls). El visitante ve lo mismo: la app arranca y pinta el artículo.
+    // - sitemap.xml y robots.txt
+    // El dominio sale del <link rel="canonical"> de index.html: no se repite en ningún sitio.
     closeBundle() {
       if (config.command !== 'build') return
 
       const outDir = path.resolve(config.root, config.build.outDir)
       const blogDir = path.resolve(config.root, 'content/blog')
-      const indexHtml = fs.readFileSync(path.join(outDir, 'index.html'), 'utf8')
+      const indexPath = path.join(outDir, 'index.html')
+      let indexHtml = fs.readFileSync(indexPath, 'utf8')
 
       const canonical = indexHtml.match(/rel="canonical" href="([^"]+)"/)
       if (!canonical) throw new Error('[devforge-blog] index.html necesita <link rel="canonical">')
       const siteUrl = canonical[1].replace(/\/$/, '')
 
+      indexHtml = indexHtml.replace('</head>', `  ${personJsonLd(siteUrl)}\n  </head>`)
+      fs.writeFileSync(indexPath, indexHtml)
+
       fs.mkdirSync(path.join(outDir, 'blog'), { recursive: true })
 
+      const posts = []
       for (const slug of fs.readdirSync(blogDir)) {
         const post = readPreviewPost(blogDir, slug)
         if (!post) continue
+        posts.push({ slug, ...post })
 
         fs.writeFileSync(
           path.join(outDir, 'blog', `${slug}.html`),
           renderPostPage(indexHtml, siteUrl, slug, post.lang, post.data)
         )
       }
+
+      fs.writeFileSync(path.join(outDir, 'sitemap.xml'), sitemapXml(siteUrl, posts))
+      fs.writeFileSync(path.join(outDir, 'robots.txt'), robotsTxt(siteUrl))
     },
 
     transform(source, id) {
