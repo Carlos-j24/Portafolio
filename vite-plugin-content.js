@@ -3,10 +3,20 @@ import path from 'node:path'
 import { marked } from 'marked'
 import { email, socials } from './src/data/contact.js'
 
-// Convierte los artículos de content/blog/<slug>/<idioma>.md en módulos JS al compilar:
-// ?meta exporta el front matter (meta) y ?html el cuerpo ya convertido (html), en módulos
-// distintos para que el HTML de cada artículo vaya en su propio chunk.
-// Así el navegador no descarga un lector de Markdown.
+// Contenido en Markdown: content/<colección>/<slug>/<idioma>.md
+// - Al compilar, cada archivo se convierte en módulos JS: ?meta exporta el front matter
+//   (meta) y ?html el cuerpo ya convertido (html), en módulos distintos para que el HTML
+//   de cada página vaya en su propio chunk. El navegador no descarga un lector de Markdown.
+// - Tras el build se generan páginas de vista previa, sitemap.xml y robots.txt.
+
+// Colecciones: carpeta en content/ → ruta pública y tipo de schema.org
+const COLLECTIONS = {
+  blog: { route: 'blog', schema: 'BlogPosting' },
+  projects: { route: 'projects', schema: 'SoftwareSourceCode' }
+}
+
+// Campos del front matter que llegan a la app (el resto se ignora)
+const META_FIELDS = ['title', 'date', 'readingTime', 'tags', 'summary', 'period', 'role', 'stack', 'repo', 'image']
 
 const unquote = (value) => value.replace(/^["'](.*)["']$/, '$1')
 
@@ -40,9 +50,9 @@ const parseFrontMatter = (source) => {
   return { data, body: match[2] }
 }
 
-// Idioma de las vistas previas al compartir un artículo (LinkedIn, WhatsApp…): los bots no
-// tienen preferencia de idioma, así que se elige uno. Si el artículo no existe en ese
-// idioma, se usa el otro.
+// Idioma de las vistas previas al compartir (LinkedIn, WhatsApp…): los bots no tienen
+// preferencia de idioma, así que se elige uno. Si la página no existe en ese idioma,
+// se usa el otro.
 const PREVIEW_LANG = 'es'
 
 const LOCALES = { es: 'es_ES', en: 'en_US' }
@@ -57,15 +67,15 @@ const escapeAttr = (value) =>
 // Cambia el atributo content (o href) de la etiqueta que contiene `selector` en index.html
 const setTag = (html, selector, value, attr = 'content') => {
   const pattern = new RegExp(`(<[^>]*${selector}[^>]*\\s${attr}=")[^"]*(")`)
-  if (!pattern.test(html)) throw new Error(`[devforge-blog] No encuentro ${selector} en index.html`)
+  if (!pattern.test(html)) throw new Error(`[content] No encuentro ${selector} en index.html`)
   return html.replace(pattern, `$1${escapeAttr(value)}$2`)
 }
 
-const readPreviewPost = (blogDir, slug) => {
+const readPreviewEntry = (dir, slug) => {
   const langs = [PREVIEW_LANG, ...Object.keys(LOCALES).filter((lang) => lang !== PREVIEW_LANG)]
 
   for (const lang of langs) {
-    const file = path.join(blogDir, slug, `${lang}.md`)
+    const file = path.join(dir, slug, `${lang}.md`)
     if (fs.existsSync(file)) {
       return { lang, data: parseFrontMatter(fs.readFileSync(file, 'utf8')).data }
     }
@@ -74,10 +84,48 @@ const readPreviewPost = (blogDir, slug) => {
   return null
 }
 
-// index.html con los metadatos de un artículo, para que los bots que no ejecutan JS
-// (vistas previas de LinkedIn, WhatsApp, X…) vean su título y su descripción
-const renderPostPage = (indexHtml, siteUrl, slug, lang, data) => {
-  const url = `${siteUrl}/blog/${slug}`
+// <script type="application/ld+json"> seguro dentro de HTML (sin "</script>" en el JSON)
+const jsonLd = (data) =>
+  `<script type="application/ld+json">${JSON.stringify(data).replace(/</g, '\\u003c')}</script>`
+
+const author = (siteUrl) => ({ '@type': 'Person', name: 'Carlos Castro', url: `${siteUrl}/` })
+
+const schemaFor = (collection, { url, siteUrl, image, lang, data }) => {
+  if (COLLECTIONS[collection].schema === 'SoftwareSourceCode') {
+    return {
+      '@context': 'https://schema.org',
+      '@type': 'SoftwareSourceCode',
+      name: data.title,
+      description: data.summary,
+      dateCreated: data.date,
+      inLanguage: lang,
+      url,
+      image,
+      codeRepository: data.repo,
+      programmingLanguage: data.stack ?? [],
+      author: author(siteUrl)
+    }
+  }
+
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'BlogPosting',
+    headline: data.title,
+    description: data.summary,
+    datePublished: data.date,
+    inLanguage: lang,
+    url,
+    mainEntityOfPage: url,
+    image,
+    keywords: (data.tags ?? []).join(', '),
+    author: author(siteUrl)
+  }
+}
+
+// index.html con los metadatos de una página de contenido, para que los bots que no
+// ejecutan JS (vistas previas de LinkedIn, WhatsApp, X…) vean su título y su descripción
+const renderEntryPage = (indexHtml, siteUrl, collection, slug, lang, data) => {
+  const url = `${siteUrl}/${COLLECTIONS[collection].route}/${slug}`
   const title = `${data.title} — Carlos Castro`
   const image = data.image ? new URL(data.image, `${siteUrl}/`).href : null
 
@@ -108,28 +156,12 @@ const renderPostPage = (indexHtml, siteUrl, slug, lang, data) => {
     ...(data.tags ?? []).map((tag) => `<meta property="article:tag" content="${escapeAttr(tag)}" />`)
   ]
 
-  const blogPosting = {
-    '@context': 'https://schema.org',
-    '@type': 'BlogPosting',
-    headline: data.title,
-    description: data.summary,
-    datePublished: data.date,
-    inLanguage: lang,
-    url,
-    mainEntityOfPage: url,
-    image: image ?? `${siteUrl}/og-image.png`,
-    keywords: (data.tags ?? []).join(', '),
-    author: { '@type': 'Person', name: 'Carlos Castro', url: `${siteUrl}/` }
-  }
+  const schema = schemaFor(collection, { url, siteUrl, image: image ?? `${siteUrl}/og-image.png`, lang, data })
 
-  return html.replace('</head>', `  ${articleTags.join('\n    ')}\n    ${jsonLd(blogPosting)}\n  </head>`)
+  return html.replace('</head>', `  ${articleTags.join('\n    ')}\n    ${jsonLd(schema)}\n  </head>`)
 }
 
-// <script type="application/ld+json"> seguro dentro de HTML (sin "</script>" en el JSON)
-const jsonLd = (data) =>
-  `<script type="application/ld+json">${JSON.stringify(data).replace(/</g, '\\u003c')}</script>`
-
-// Datos estructurados de la persona (portada y artículos): Google entiende quién es el autor
+// Datos estructurados de la persona (todas las páginas): Google entiende quién es el autor
 const personJsonLd = (siteUrl) =>
   jsonLd({
     '@context': 'https://schema.org',
@@ -144,11 +176,14 @@ const personJsonLd = (siteUrl) =>
     knowsAbout: ['Python', 'Django', 'Vue.js', 'React', 'PowerShell', 'Spec-Driven Development']
   })
 
-const sitemapXml = (siteUrl, posts) => {
+const sitemapXml = (siteUrl, entries) => {
   const today = new Date().toISOString().slice(0, 10)
   const urls = [
     { loc: `${siteUrl}/`, lastmod: today },
-    ...posts.map((post) => ({ loc: `${siteUrl}/blog/${post.slug}`, lastmod: post.data.date }))
+    ...entries.map((e) => ({
+      loc: `${siteUrl}/${COLLECTIONS[e.collection].route}/${e.slug}`,
+      lastmod: e.data.date
+    }))
   ]
 
   return [
@@ -162,11 +197,13 @@ const sitemapXml = (siteUrl, posts) => {
 
 const robotsTxt = (siteUrl) => `User-agent: *\nAllow: /\n\nSitemap: ${siteUrl}/sitemap.xml\n`
 
-export default function blogPlugin() {
+const CONTENT_FILE = new RegExp(`/content/(${Object.keys(COLLECTIONS).join('|')})/([^/]+)/([a-z]{2})\\.md$`)
+
+export default function contentPlugin() {
   let config
 
   return {
-    name: 'devforge-blog',
+    name: 'portfolio-content',
 
     configResolved(resolved) {
       config = resolved
@@ -174,60 +211,57 @@ export default function blogPlugin() {
 
     // Tras el build:
     // - index.html con los datos estructurados de la persona (JSON-LD)
-    // - dist/blog/<slug>.html por artículo (Vercel lo sirve en /blog/<slug> gracias a
-    //   cleanUrls). El visitante ve lo mismo: la app arranca y pinta el artículo.
+    // - dist/<ruta>/<slug>.html por página de contenido (Vercel la sirve en /<ruta>/<slug>
+    //   gracias a cleanUrls). El visitante ve lo mismo: la app arranca y pinta la página.
     // - sitemap.xml y robots.txt
     // El dominio sale del <link rel="canonical"> de index.html: no se repite en ningún sitio.
     closeBundle() {
       if (config.command !== 'build') return
 
       const outDir = path.resolve(config.root, config.build.outDir)
-      const blogDir = path.resolve(config.root, 'content/blog')
       const indexPath = path.join(outDir, 'index.html')
       let indexHtml = fs.readFileSync(indexPath, 'utf8')
 
       const canonical = indexHtml.match(/rel="canonical" href="([^"]+)"/)
-      if (!canonical) throw new Error('[devforge-blog] index.html necesita <link rel="canonical">')
+      if (!canonical) throw new Error('[content] index.html necesita <link rel="canonical">')
       const siteUrl = canonical[1].replace(/\/$/, '')
 
       indexHtml = indexHtml.replace('</head>', `  ${personJsonLd(siteUrl)}\n  </head>`)
       fs.writeFileSync(indexPath, indexHtml)
 
-      fs.mkdirSync(path.join(outDir, 'blog'), { recursive: true })
+      const entries = []
+      for (const [collection, { route }] of Object.entries(COLLECTIONS)) {
+        const dir = path.resolve(config.root, 'content', collection)
+        if (!fs.existsSync(dir)) continue
+        fs.mkdirSync(path.join(outDir, route), { recursive: true })
 
-      const posts = []
-      for (const slug of fs.readdirSync(blogDir)) {
-        const post = readPreviewPost(blogDir, slug)
-        if (!post) continue
-        posts.push({ slug, ...post })
+        for (const slug of fs.readdirSync(dir)) {
+          const entry = readPreviewEntry(dir, slug)
+          if (!entry) continue
+          entries.push({ collection, slug, ...entry })
 
-        fs.writeFileSync(
-          path.join(outDir, 'blog', `${slug}.html`),
-          renderPostPage(indexHtml, siteUrl, slug, post.lang, post.data)
-        )
+          fs.writeFileSync(
+            path.join(outDir, route, `${slug}.html`),
+            renderEntryPage(indexHtml, siteUrl, collection, slug, entry.lang, entry.data)
+          )
+        }
       }
 
-      fs.writeFileSync(path.join(outDir, 'sitemap.xml'), sitemapXml(siteUrl, posts))
+      fs.writeFileSync(path.join(outDir, 'sitemap.xml'), sitemapXml(siteUrl, entries))
       fs.writeFileSync(path.join(outDir, 'robots.txt'), robotsTxt(siteUrl))
     },
 
     transform(source, id) {
       const [rawPath, query = ''] = id.split('?')
-      const filePath = rawPath.replace(/\\/g, '/')
-      const match = filePath.match(/\/content\/blog\/([^/]+)\/([a-z]{2})\.md$/)
+      const match = rawPath.replace(/\\/g, '/').match(CONTENT_FILE)
       if (!match) return null
 
-      const [, slug, lang] = match
+      const [, collection, slug, lang] = match
       const { data, body } = parseFrontMatter(source)
 
-      const meta = {
-        slug,
-        lang,
-        title: data.title,
-        date: data.date,
-        readingTime: data.readingTime,
-        tags: data.tags ?? [],
-        summary: data.summary
+      const meta = { collection, slug, lang, tags: [] }
+      for (const field of META_FIELDS) {
+        if (data[field] !== undefined) meta[field] = data[field]
       }
 
       const code = query.includes('html')

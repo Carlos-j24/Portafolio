@@ -76,7 +76,15 @@
               </li>
             </ul>
 
-            <div class="flex gap-4 text-sm">
+            <div class="flex flex-wrap gap-x-4 gap-y-2 text-sm">
+              <RouterLink
+                v-if="hasCaseStudy(project)"
+                :to="{ name: 'project', params: { slug: project.slug } }"
+                class="text-emerald-400 hover:text-emerald-300 transition"
+              >
+                {{ t.projectsSection.caseStudy }}
+              </RouterLink>
+
               <a
                 v-if="project.demo"
                 :href="project.demo"
@@ -110,6 +118,9 @@
 <script setup>
 import { useLang } from '../../composables/useLang.js'
 import { projects } from '../../data/projects.js'
+import { getEntry } from '../../data/content.js'
 
 const { lang, t } = useLang()
+
+const hasCaseStudy = (project) => Boolean(project.slug && getEntry('projects', project.slug, lang.value))
 </script>

@@ -71,9 +71,9 @@
 <script setup>
 import { computed } from 'vue'
 import { useLang } from '../../composables/useLang.js'
-import { getPosts, formatDate } from '../../data/posts.js'
+import { getEntries, formatDate } from '../../data/content.js'
 
 const { lang, t } = useLang()
 
-const posts = computed(() => getPosts(lang.value))
+const posts = computed(() => getEntries('blog', lang.value))
 </script>
