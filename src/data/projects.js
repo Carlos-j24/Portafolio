@@ -1,7 +1,9 @@
 // Proyectos destacados. image es opcional: ruta dentro de public/ (p. ej. '/projects/medalert.png')
+// slug: opcional; si existe content/projects/<slug>/, la tarjeta enlaza a su caso de estudio
 export const projects = [
   {
     title: 'MedAlert',
+    slug: 'medalert',
     image: '/projects/medalert.webp',
     description: {
       en: 'Web app for caregivers to manage medications, reminders and medical appointments for one or more patients. Automatically generates reminders, sends WhatsApp notifications and produces per-patient PDF reports.',
@@ -16,6 +18,7 @@ export const projects = [
   },
   {
     title: 'DevForge',
+    slug: 'devforge',
     image: '/projects/devforge.webp',
     description: {
       en: 'Personal development ecosystem in PowerShell. DevForge Doctor diagnoses the dev environment (console or JSON report) and DevForge Init sets up an AI-agent harness (AGENTS.md, CLAUDE.md, MEMORY.md) in other projects. Built with Spec-Driven Development, automated Pester tests and CI on every PR.',

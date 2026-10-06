@@ -1,8 +1,8 @@
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
-import blog from './vite-plugin-blog.js'
+import content from './vite-plugin-content.js'
 
 // https://vite.dev/config/
 export default defineConfig({
-  plugins: [vue(), blog()],
+  plugins: [vue(), content()],
 })

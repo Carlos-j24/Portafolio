@@ -11,6 +11,7 @@ Portafolio personal desarrollado con Vue 3 y Vite, con estética de sistema/term
 - **Animaciones de scroll** con [`@vueuse/motion`](https://motion.vueuse.org/).
 - Secciones: Hero, Sobre mí, Habilidades (con la especialidad principal destacada), Trayectoria (línea de tiempo estilo log), Proyectos, Blog, Terminal decorativa y Contacto (correo visible con botón de copiar).
 - **Blog bilingüe** en Markdown: cada artículo tiene su página (`/blog/<slug>`) y se convierte a HTML al compilar, así que el navegador no descarga ningún lector de Markdown.
+- **Casos de estudio** de MedAlert y DevForge (`/projects/<slug>`), con el mismo sistema: problema, decisiones, arquitectura, capturas y aprendizajes. La tarjeta del proyecto enlaza a su caso de estudio si existe.
 - Iconos de correo, LinkedIn y GitHub en la barra de navegación; los datos de contacto viven en `src/data/contact.js`.
 - Metadata SEO y Open Graph (incluyendo imagen de preview personalizada) para compartir el link.
 - **SEO generado al compilar**: `sitemap.xml` (portada y artículos), `robots.txt` y datos estructurados JSON-LD (`Person` en todas las páginas, `BlogPosting` en cada artículo).
@@ -59,13 +60,17 @@ npm run preview
 
 El artículo aparece automáticamente en la sección Blog, ordenado por fecha (el más reciente primero).
 
-Al compilar se genera además `dist/blog/<slug>.html` con el título, la descripción y los datos Open Graph del artículo **en español** (`PREVIEW_LANG` en `vite-plugin-blog.js`), para que las vistas previas de LinkedIn, WhatsApp o X muestren el artículo y no la portada. Para una imagen propia, añade `image: /ruta-en-public.png` (1200×630) al front matter; si no, se usa `og-image.png`.
+**Casos de estudio:** igual, en `content/projects/<slug>/es.md` y `en.md`, con estos campos en el front matter: `title`, `date`, `period`, `role`, `stack` (lista), `repo`, `image` (portada), `readingTime` y `summary`. Las imágenes de la galería van en `public/gallery/<slug>/` (no en `public/projects/<slug>/`: chocaría con la ruta de la página). Para enlazarlo desde la tarjeta, pon el mismo `slug` en `src/data/projects.js`.
+
+Al compilar se genera además `dist/blog/<slug>.html` (y `dist/projects/<slug>.html` para los casos de estudio) con el título, la descripción y los datos Open Graph del artículo **en español** (`PREVIEW_LANG` en `vite-plugin-content.js`), para que las vistas previas de LinkedIn, WhatsApp o X muestren el artículo y no la portada. Para una imagen propia, añade `image: /ruta-en-public.png` (1200×630) al front matter; si no, se usa `og-image.png`.
 
 ## 📁 Estructura
 
 ```
 content/blog/<slug>/     # Artículos del blog (es.md y en.md)
-vite-plugin-blog.js      # Artículos a HTML, páginas de vista previa, sitemap, robots y JSON-LD
+content/projects/<slug>/ # Casos de estudio (es.md y en.md)
+public/gallery/<slug>/   # Imágenes de los casos de estudio
+vite-plugin-content.js   # Markdown a HTML, páginas de vista previa, sitemap, robots y JSON-LD
 vercel.json              # cleanUrls (/blog/<slug> → blog/<slug>.html) y el resto de rutas a index.html
 src/
 ├── App.vue                 # Orquesta la intro (loading → flash → welcome → home)
@@ -74,12 +79,13 @@ src/
 ├── style.css               # Tailwind + estilos compartidos (cuadrícula, animaciones)
 ├── i18n.js                 # Textos en inglés y español
 ├── composables/
-│   └── useLang.js           # Idioma compartido (detección, persistencia, textos)
+│   ├── useLang.js           # Idioma compartido (detección, persistencia, textos)
+│   └── useContentEntry.js   # Página de contenido: carga del HTML y título de la pestaña
 ├── data/
 │   ├── projects.js          # Proyectos (image opcional para la captura)
 │   ├── contact.js           # Correo y redes
 │   ├── journey.js           # Trayectoria: estudios, cursos, certificados, hackatones y experiencia
-│   └── posts.js             # Lista de artículos y carga de cada uno
+│   └── content.js           # Artículos y casos de estudio: listas y carga de cada uno
 ├── components/
 │   ├── LoadingScreen.vue    # Pantalla de carga con barra de progreso y skip
 │   ├── SystemFlash.vue      # Efecto de transición
@@ -88,10 +94,12 @@ src/
 │   ├── CursorGlow.vue       # Brillo que sigue al cursor
 │   ├── AppHeader.vue        # Navegación, idioma y menú móvil
 │   ├── SocialIcon.vue       # Iconos de correo, LinkedIn y GitHub
+│   ├── ArticleBody.vue      # Cuerpo de artículos y casos de estudio (estilos de lectura)
 │   └── sections/            # Hero, About, Skills, Journey, Projects, Blog, Terminal y Contact
 └── views/
     ├── Home.vue             # Portada: todas las secciones
-    └── BlogPost.vue         # Página de un artículo
+    ├── BlogPost.vue         # Página de un artículo
+    └── ProjectPage.vue      # Página de un caso de estudio
 ```
 
 ## 📦 Deploy

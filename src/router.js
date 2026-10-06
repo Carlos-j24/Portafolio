@@ -27,6 +27,7 @@ export const router = createRouter({
   routes: [
     { path: '/', name: 'home', component: Home },
     { path: '/blog/:slug', name: 'post', component: () => import('./views/BlogPost.vue') },
+    { path: '/projects/:slug', name: 'project', component: () => import('./views/ProjectPage.vue') },
     { path: '/:pathMatch(.*)*', redirect: '/' }
   ],
   scrollBehavior(to, from, savedPosition) {

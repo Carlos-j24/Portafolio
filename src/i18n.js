@@ -47,7 +47,15 @@ export const translations = {
       title: 'Selected Projects',
       subtitle: 'Real-world systems built with clean architecture, maintainable code and focus on impact.',
       liveDemo: 'Live Demo →',
-      sourceCode: 'Source Code'
+      sourceCode: 'Source Code',
+      caseStudy: 'Case study →'
+    },
+    projectPage: {
+      back: '← Back to projects',
+      repo: 'View source code →',
+      next: 'Next project',
+      notFoundTitle: 'Project not found',
+      notFoundText: 'This project does not exist or has been moved.'
     },
     blog: {
       title: 'Blog & Notes',
@@ -120,7 +128,15 @@ export const translations = {
       title: 'Proyectos Destacados',
       subtitle: 'Sistemas reales construidos con arquitectura limpia, código mantenible y enfoque en el impacto.',
       liveDemo: 'Ver Demo →',
-      sourceCode: 'Código Fuente'
+      sourceCode: 'Código Fuente',
+      caseStudy: 'Ver caso de estudio →'
+    },
+    projectPage: {
+      back: '← Volver a proyectos',
+      repo: 'Ver código fuente →',
+      next: 'Siguiente proyecto',
+      notFoundTitle: 'Proyecto no encontrado',
+      notFoundText: 'Este proyecto no existe o se ha movido.'
     },
     blog: {
       title: 'Blog y Notas',
