@@ -84,7 +84,15 @@
               class="flex items-baseline gap-2"
             >
               <span class="text-gray-600 shrink-0">{{ index === entry.items.length - 1 ? '└─' : '├─' }}</span>
-              <span class="text-gray-300">{{ item.name[lang] }}</span>
+              <a
+                v-if="item.credential"
+                :href="item.credential"
+                target="_blank"
+                rel="noopener noreferrer"
+                :title="t.journey.credentialOf + ' ' + item.name[lang]"
+                class="text-gray-300 underline decoration-dotted decoration-white/30 underline-offset-4 hover:text-emerald-300 hover:decoration-emerald-300 transition"
+              >{{ item.name[lang] }} ↗</a>
+              <span v-else class="text-gray-300">{{ item.name[lang] }}</span>
               <span class="flex-1 border-b border-dotted border-white/10 translate-y-[-3px]"></span>
               <span class="text-gray-500 shrink-0">{{ item.hours }} h · {{ item.date }}</span>
             </li>
@@ -111,6 +119,16 @@
             class="inline-block mt-4 text-sm text-emerald-400 hover:text-emerald-300 transition"
           >
             {{ t.journey.credential }}
+          </a>
+
+          <a
+            v-if="entry.profile"
+            :href="entry.profile"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-block mt-4 text-sm text-emerald-400 hover:text-emerald-300 transition"
+          >
+            {{ t.journey.profile }}
           </a>
         </li>
 
