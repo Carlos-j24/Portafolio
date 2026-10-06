@@ -41,6 +41,8 @@ export const translations = {
       present: 'present',
       active: 'IN PROGRESS',
       credential: 'View credential →',
+      credentialOf: 'Certificate:',
+      profile: 'View verified Alura profile →',
       types: { edu: 'EDU', course: 'COURSE', cert: 'CERT', hack: 'HACK', work: 'WORK' }
     },
     projectsSection: {
@@ -122,6 +124,8 @@ export const translations = {
       present: 'actual',
       active: 'EN CURSO',
       credential: 'Ver credencial →',
+      credentialOf: 'Certificado:',
+      profile: 'Ver perfil verificado en Alura →',
       types: { edu: 'EDU', course: 'CURSO', cert: 'CERT', hack: 'HACK', work: 'TRABAJO' }
     },
     projectsSection: {
