@@ -1,6 +1,6 @@
 import fs from 'node:fs'
 import path from 'node:path'
-import { marked } from 'marked'
+import { Marked } from 'marked'
 import { email, socials } from './src/data/contact.js'
 
 // Contenido en Markdown: content/<colección>/<slug>/<idioma>.md
@@ -197,16 +197,74 @@ const sitemapXml = (siteUrl, entries) => {
 
 const robotsTxt = (siteUrl) => `User-agent: *\nAllow: /\n\nSitemap: ${siteUrl}/sitemap.xml\n`
 
+// Ancho y alto de una imagen (WebP o PNG) leyendo su cabecera. null si no se reconoce.
+const imageSize = (file) => {
+  let b
+  try {
+    b = fs.readFileSync(file)
+  } catch {
+    return null
+  }
+
+  if (b.toString('ascii', 1, 4) === 'PNG') {
+    return { width: b.readUInt32BE(16), height: b.readUInt32BE(20) }
+  }
+
+  if (b.toString('ascii', 0, 4) !== 'RIFF' || b.toString('ascii', 8, 12) !== 'WEBP') return null
+
+  const chunk = b.toString('ascii', 12, 16)
+  if (chunk === 'VP8 ') {
+    return { width: b.readUInt16LE(26) & 0x3fff, height: b.readUInt16LE(28) & 0x3fff }
+  }
+  if (chunk === 'VP8L') {
+    const bits = b.readUInt32LE(21)
+    return { width: (bits & 0x3fff) + 1, height: ((bits >> 14) & 0x3fff) + 1 }
+  }
+  if (chunk === 'VP8X') {
+    return { width: b.readUIntLE(24, 3) + 1, height: b.readUIntLE(27, 3) + 1 }
+  }
+
+  return null
+}
+
+// Imágenes del Markdown con su tamaño real (el navegador reserva el hueco y la página no
+// salta al cargarlas) y carga diferida
+const markdownWith = (publicDir) => {
+  const md = new Marked()
+
+  md.use({
+    renderer: {
+      image({ href, title, text }) {
+        const size = href.startsWith('/') ? imageSize(path.join(publicDir, href)) : null
+        const attrs = [
+          `src="${escapeAttr(href)}"`,
+          `alt="${escapeAttr(text)}"`,
+          title ? `title="${escapeAttr(title)}"` : '',
+          size ? `width="${size.width}" height="${size.height}"` : '',
+          'loading="lazy"',
+          'decoding="async"'
+        ].filter(Boolean)
+
+        return `<img ${attrs.join(' ')}>`
+      }
+    }
+  })
+
+  return md
+}
+
 const CONTENT_FILE = new RegExp(`/content/(${Object.keys(COLLECTIONS).join('|')})/([^/]+)/([a-z]{2})\\.md$`)
 
 export default function contentPlugin() {
   let config
+  let markdown
 
   return {
     name: 'portfolio-content',
 
     configResolved(resolved) {
       config = resolved
+      markdown = markdownWith(resolved.publicDir)
     },
 
     // Tras el build:
@@ -265,7 +323,7 @@ export default function contentPlugin() {
       }
 
       const code = query.includes('html')
-        ? `export const html = ${JSON.stringify(marked.parse(body))}`
+        ? `export const html = ${JSON.stringify(markdown.parse(body))}`
         : `export const meta = ${JSON.stringify(meta)}`
 
       return { code, map: null }
