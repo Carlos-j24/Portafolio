@@ -31,7 +31,7 @@ export const translations = {
       subtitle: 'Structured view of my technical capabilities organized by system layers and engineering focus.',
       groups: [
         { title: 'Backend Systems', primary: true, items: ['Python (Advanced)', 'Django (Advanced)', 'REST APIs', 'PostgreSQL', 'System Design'] },
-        { title: 'Frontend Engineering', items: ['Vue 3', 'TailwindCSS', 'Responsive UI', 'Component Architecture', 'UX Principles'] },
+        { title: 'Frontend Engineering', items: ['Vue 3', 'React', 'TailwindCSS', 'Responsive UI', 'Component Architecture', 'UX Principles'] },
         { title: 'Engineering Tools', items: ['Git & GitHub', 'Linux Basics', 'Docker (Learning)', 'CI/CD Concepts', 'Agile Workflow'] }
       ]
     },
@@ -104,7 +104,7 @@ export const translations = {
       subtitle: 'Vista estructurada de mis capacidades técnicas, organizadas por capas del sistema y enfoque de ingeniería.',
       groups: [
         { title: 'Sistemas Backend', primary: true, items: ['Python (Avanzado)', 'Django (Avanzado)', 'APIs REST', 'PostgreSQL', 'Diseño de Sistemas'] },
-        { title: 'Ingeniería Frontend', items: ['Vue 3', 'TailwindCSS', 'UI Responsiva', 'Arquitectura de Componentes', 'Principios UX'] },
+        { title: 'Ingeniería Frontend', items: ['Vue 3', 'React', 'TailwindCSS', 'UI Responsiva', 'Arquitectura de Componentes', 'Principios UX'] },
         { title: 'Herramientas de Ingeniería', items: ['Git y GitHub', 'Fundamentos de Linux', 'Docker (Aprendiendo)', 'Conceptos de CI/CD', 'Flujo de trabajo Ágil'] }
       ]
     },
