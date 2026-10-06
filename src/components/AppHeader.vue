@@ -1,17 +1,17 @@
 <template>
   <header
-    class="flex justify-between items-center px-4 md:px-8 py-6 border-b border-white/5 backdrop-blur sticky top-0 bg-[#0B0F14]/60 z-50"
+    class="flex justify-between items-center gap-6 px-4 md:px-8 py-6 border-b border-white/5 backdrop-blur sticky top-0 bg-[#0B0F14]/60 z-50"
   >
     <RouterLink
       :to="{ path: '/', hash: '#home' }"
       @click="scrollIfCurrent('#home')"
-      class="text-xs sm:text-sm tracking-widest text-gray-400 hover:text-white transition animate-fade-in truncate"
+      class="min-w-0 text-xs sm:text-sm tracking-widest text-gray-400 hover:text-white transition animate-fade-in truncate"
     >
       CARLOS.DEV // SYSTEM ONLINE
     </RouterLink>
 
-    <div class="flex items-center gap-3 lg:gap-6">
-      <nav class="hidden lg:flex gap-6 text-sm text-gray-400">
+    <div class="flex items-center gap-3 xl:gap-6">
+      <nav class="hidden xl:flex gap-6 whitespace-nowrap text-sm text-gray-400">
         <RouterLink
           v-for="link in links"
           :key="link"
@@ -23,7 +23,7 @@
         </RouterLink>
       </nav>
 
-      <div class="hidden sm:flex items-center gap-3 lg:pl-6 lg:border-l lg:border-white/10">
+      <div class="hidden sm:flex items-center gap-3 xl:pl-6 xl:border-l xl:border-white/10">
         <a
           v-for="social in socialLinks"
           :key="social.name"
@@ -46,7 +46,7 @@
       </button>
 
       <button
-        class="lg:hidden flex flex-col justify-center gap-1.5 w-8 h-8 shrink-0"
+        class="xl:hidden flex flex-col justify-center gap-1.5 w-8 h-8 shrink-0"
         :aria-label="mobileMenuOpen ? t.nav.close : t.nav.menu"
         :aria-expanded="mobileMenuOpen"
         @click="mobileMenuOpen = !mobileMenuOpen"
@@ -69,7 +69,7 @@
     <!-- MOBILE MENU -->
     <nav
       v-if="mobileMenuOpen"
-      class="lg:hidden absolute top-full left-0 right-0 flex flex-col gap-1 bg-[#0B0F14]/95 border-b border-white/5 backdrop-blur px-4 py-4 text-sm text-gray-400"
+      class="xl:hidden absolute top-full left-0 right-0 flex flex-col gap-1 bg-[#0B0F14]/95 border-b border-white/5 backdrop-blur px-4 py-4 text-sm text-gray-400"
     >
       <RouterLink
         v-for="link in links"

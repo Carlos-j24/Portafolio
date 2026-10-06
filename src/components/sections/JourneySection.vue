@@ -41,8 +41,9 @@
           <!-- Línea de log -->
           <div class="flex flex-wrap items-center gap-x-3 gap-y-2 font-mono text-xs mb-3">
             <span class="text-gray-500">
-              <span class="text-emerald-400">></span>
-              {{ entry.start }} → {{ entry.end ?? t.journey.present }}
+              <span class="text-emerald-400 mr-1.5">></span>
+              <template v-if="entry.start === entry.end">{{ entry.start }}</template>
+              <template v-else>{{ entry.start }} → {{ entry.end ?? t.journey.present }}</template>
             </span>
 
             <span
@@ -71,6 +72,23 @@
           <p class="text-gray-400 text-sm leading-relaxed max-w-2xl">
             {{ entry.description[lang] }}
           </p>
+
+          <!-- Desglose (formaciones de un programa), como un árbol de terminal -->
+          <ul
+            v-if="entry.items?.length"
+            class="mt-4 font-mono text-xs space-y-1.5 max-w-md"
+          >
+            <li
+              v-for="(item, index) in entry.items"
+              :key="item.name.en"
+              class="flex items-baseline gap-2"
+            >
+              <span class="text-gray-600 shrink-0">{{ index === entry.items.length - 1 ? '└─' : '├─' }}</span>
+              <span class="text-gray-300">{{ item.name[lang] }}</span>
+              <span class="flex-1 border-b border-dotted border-white/10 translate-y-[-3px]"></span>
+              <span class="text-gray-500 shrink-0">{{ item.hours }} h · {{ item.date }}</span>
+            </li>
+          </ul>
 
           <ul
             v-if="entry.skills.length"
