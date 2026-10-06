@@ -11,7 +11,7 @@
     <div class="absolute inset-0 engineering-grid opacity-[0.04]"></div>
 
     <button
-      class="absolute top-6 right-6 text-xs tracking-widest text-gray-500 hover:text-white transition border border-white/10 hover:border-white/30 rounded-full px-4 py-2"
+      class="absolute top-6 right-6 text-xs tracking-widest text-gray-400 hover:text-white transition border border-white/10 hover:border-white/30 rounded-full px-4 py-2"
       @click="$emit('skip')"
     >
       SKIP →

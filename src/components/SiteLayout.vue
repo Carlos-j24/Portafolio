@@ -30,7 +30,7 @@
       </main>
 
       <!-- FOOTER -->
-      <footer class="px-8 py-6 text-center text-xs text-gray-500 border-t border-white/5">
+      <footer class="px-8 py-6 text-center text-xs text-gray-400 border-t border-white/5">
         {{ t.footer }}
       </footer>
 

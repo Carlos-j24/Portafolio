@@ -40,7 +40,7 @@
 
           <!-- Línea de log -->
           <div class="flex flex-wrap items-center gap-x-3 gap-y-2 font-mono text-xs mb-3">
-            <span class="text-gray-500">
+            <span class="text-gray-400">
               <span class="text-emerald-400 mr-1.5">></span>
               <template v-if="entry.start === entry.end">{{ entry.start }}</template>
               <template v-else>{{ entry.start }} → {{ entry.end ?? t.journey.present }}</template>
@@ -83,7 +83,7 @@
               :key="item.name.en"
               class="flex items-baseline gap-2"
             >
-              <span class="text-gray-600 shrink-0">{{ index === entry.items.length - 1 ? '└─' : '├─' }}</span>
+              <span class="text-gray-600 shrink-0" aria-hidden="true">{{ index === entry.items.length - 1 ? '└─' : '├─' }}</span>
               <a
                 v-if="item.credential"
                 :href="item.credential"
@@ -94,7 +94,7 @@
               >{{ item.name[lang] }} ↗</a>
               <span v-else class="text-gray-300">{{ item.name[lang] }}</span>
               <span class="flex-1 border-b border-dotted border-white/10 translate-y-[-3px]"></span>
-              <span class="text-gray-500 shrink-0">{{ item.hours }} h · {{ item.date }}</span>
+              <span class="text-gray-400 shrink-0">{{ item.hours }} h · {{ item.date }}</span>
             </li>
           </ul>
 

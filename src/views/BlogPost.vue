@@ -12,7 +12,7 @@
       <template v-if="post">
 
         <header class="mb-12 animate-fade-in-up">
-          <p class="font-mono text-xs text-gray-500 mb-4">
+          <p class="font-mono text-xs text-gray-400 mb-4">
             <span class="text-emerald-400">></span>
             {{ formatDate(post.date, lang) }}
             <span v-if="post.readingTime"> · {{ post.readingTime }} {{ t.blog.minRead }}</span>
