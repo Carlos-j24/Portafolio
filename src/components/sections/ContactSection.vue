@@ -80,6 +80,15 @@
           {{ t.contact.linkedin }}
         </a>
 
+        <a
+          :href="cvUrl(lang)"
+          download
+          class="inline-flex items-center gap-2 px-6 py-3 border border-emerald-400/40 text-emerald-300 rounded-lg hover:bg-emerald-400/10 transition"
+        >
+          <SocialIcon name="download" class="w-4 h-4" />
+          {{ t.contact.cv }}
+        </a>
+
       </div>
 
     </div>
@@ -90,9 +99,9 @@
 import { ref, onUnmounted } from 'vue'
 import SocialIcon from '../SocialIcon.vue'
 import { useLang } from '../../composables/useLang.js'
-import { email, socials } from '../../data/contact.js'
+import { email, socials, cvUrl } from '../../data/contact.js'
 
-const { t } = useLang()
+const { lang, t } = useLang()
 
 const copied = ref(false)
 
