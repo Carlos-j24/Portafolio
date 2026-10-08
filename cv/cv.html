@@ -210,7 +210,7 @@ const T = {
     profile: 'Desarrollador full stack con enfoque en Python / Django en el backend y Vue 3 + TypeScript en el frontend. Tecnólogo en Análisis y Desarrollo de Software (SENA) en etapa productiva, con experiencia freelance en backend. Construyo aplicaciones web completas —APIs REST, interfaces, pruebas y documentación— y cuido la calidad con Pull Requests e integración continua.',
     experience: [
       {
-        title: 'Python Backend Developer', place: 'Hostpal (freelance)', date: '2023 · 2 meses',
+        title: 'Python Backend Developer', place: 'Hostpal (freelance)', date: 'May – Jun 2023',
         bullets: [
           'Desarrollo y automatización de tareas con Python para procesar información de clientes y propiedades.',
           'Manejo de bases de datos y apoyo en la integración y migración de información entre plataformas.',
@@ -240,7 +240,7 @@ const T = {
         caseStudy: 'devforge', repo: 'DevForge'
       },
       {
-        title: 'Diapasón', tagline: 'De tablaturas a partituras',
+        title: 'Diapasón', tagline: 'De tablaturas a partituras', status: 'En desarrollo',
         stack: 'Vue 3 · TypeScript · Vite · Django · HTML5 / CSS3',
         bullets: [
           'Editor web de tablatura con partitura sincronizada y un motor musical (duración y ritmo) cubierto con pruebas.'
@@ -276,7 +276,7 @@ const T = {
     profile: 'Full stack developer focused on Python / Django on the back end and Vue 3 + TypeScript on the front end. Software Analysis and Development Technologist (SENA) in the work-placement stage, with freelance back-end experience. I build complete web applications —REST APIs, interfaces, tests and documentation— and look after quality with Pull Requests and continuous integration.',
     experience: [
       {
-        title: 'Python Backend Developer', place: 'Hostpal (freelance)', date: '2023 · 2 months',
+        title: 'Python Backend Developer', place: 'Hostpal (freelance)', date: 'May – Jun 2023',
         bullets: [
           'Built and automated Python tasks to process client and property data.',
           'Managed databases and helped integrate and migrate information between platforms.',
@@ -306,7 +306,7 @@ const T = {
         caseStudy: 'devforge', repo: 'DevForge'
       },
       {
-        title: 'Diapasón', tagline: 'From tablature to sheet music',
+        title: 'Diapasón', tagline: 'From tablature to sheet music', status: 'In progress',
         stack: 'Vue 3 · TypeScript · Vite · Django · HTML5 / CSS3',
         bullets: [
           'Web tablature editor with synchronized sheet music and a music engine (duration and rhythm) covered by tests.'
@@ -336,7 +336,7 @@ document.querySelectorAll('[data-t]').forEach((el) => { el.textContent = t[el.da
 
 const contact = [
   phone && ['phone', phone, `tel:${phone.replace(/\s/g, '')}`],
-  ['mail', 'carlos.castro131121@gmail.com', 'mailto:carlos.castro131121@gmail.com'],
+  ['mail', 'carlos.castro24@outlook.es', 'mailto:carlos.castro24@outlook.es'],
   ['web', SITE, `https://${SITE}/`],
   ['github', 'github.com/Carlos-j24', 'https://github.com/Carlos-j24'],
   ['linkedin', 'in/carlos-castro-lpz', 'https://linkedin.com/in/carlos-castro-lpz/']
@@ -366,7 +366,10 @@ document.getElementById('projects').innerHTML = t.projects.map((p) => {
   if (p.repo) links.push(`<a href="https://github.com/Carlos-j24/${p.repo}">github.com/Carlos-j24/${p.repo}</a>`)
   return `
   <div class="entry">
-    <p class="entry-title">${esc(p.title)} <span>— ${esc(p.tagline)}</span></p>
+    <div class="entry-head">
+      <p class="entry-title">${esc(p.title)} <span>— ${esc(p.tagline)}</span></p>
+      ${p.status ? `<p class="date">${esc(p.status)}</p>` : ''}
+    </div>
     <p class="stack">${esc(p.stack)}</p>
     ${bullets(p.bullets)}
     ${links.length ? `<p class="link">${links.join(' · ')}</p>` : ''}
