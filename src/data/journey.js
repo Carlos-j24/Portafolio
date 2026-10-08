@@ -51,6 +51,22 @@ export const journey = [
     profile: ALURA
   },
   {
+    type: 'work',
+    start: '2023-05',
+    end: '2023-06',
+    title: {
+      en: 'Python Backend Developer (freelance)',
+      es: 'Python Backend Developer (freelance)'
+    },
+    place: 'Hostpal',
+    description: {
+      en: 'Built and automated Python tasks to process client and property data, managed databases and helped integrate and migrate information between platforms, as part of a development team.',
+      es: 'Desarrollo y automatización de tareas con Python para procesar información de clientes y propiedades, manejo de bases de datos y apoyo en la integración y migración de información entre plataformas, dentro de un equipo de desarrollo.'
+    },
+    skills: ['Python'],
+    credential: null
+  },
+  {
     type: 'cert',
     start: '2023-06',
     end: '2023-06',
