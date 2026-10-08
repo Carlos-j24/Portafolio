@@ -13,7 +13,8 @@ export const translations = {
       statusLabel: 'STATUS',
       statusValue: 'Available for work',
       viewProjects: 'View Projects',
-      contactMe: 'Contact Me'
+      contactMe: 'Contact Me',
+      downloadCv: 'Download CV'
     },
     about: {
       title: 'About Me',
@@ -79,7 +80,8 @@ export const translations = {
       copy: 'Copy email',
       copied: 'Copied!',
       github: 'GitHub',
-      linkedin: 'LinkedIn'
+      linkedin: 'LinkedIn',
+      cv: 'Download CV'
     },
     footer: 'Built with precision • Designed for impact • Powered by Carlos'
   },
@@ -96,7 +98,8 @@ export const translations = {
       statusLabel: 'ESTADO',
       statusValue: 'Disponible para trabajar',
       viewProjects: 'Ver Proyectos',
-      contactMe: 'Contáctame'
+      contactMe: 'Contáctame',
+      downloadCv: 'Descargar CV'
     },
     about: {
       title: 'Sobre mí',
@@ -162,7 +165,8 @@ export const translations = {
       copy: 'Copiar correo',
       copied: '¡Copiado!',
       github: 'GitHub',
-      linkedin: 'LinkedIn'
+      linkedin: 'LinkedIn',
+      cv: 'Descargar CV'
     },
     footer: 'Hecho con precisión • Diseñado para generar impacto • Por Carlos'
   }

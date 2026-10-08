@@ -1,0 +1,386 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<title>Carlos José Castro López — CV</title>
+<!--
+  Fuente del CV. Se exporta a PDF con `npm run cv` (cv/build-cv.mjs).
+  Parámetros: ?lang=es|en y, solo para la versión que se envía en privado, &phone=...
+  El teléfono nunca se guarda en el repo.
+-->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  @page { size: Letter; margin: 0; }
+
+  :root {
+    --ink: #1f2933;
+    --muted: #52606d;
+    --accent: #1f5f5b;
+    --side: #f1f3f3;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html, body { background: #fff; }
+
+  body {
+    width: 8.5in;
+    height: 11in;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 9.2pt;
+    line-height: 1.36;
+    color: var(--ink);
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  a { color: inherit; text-decoration: none; }
+
+  .mono { font-family: 'IBM Plex Mono', monospace; }
+
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    padding: 0.36in 0.5in 0.18in;
+    border-bottom: 2.5px solid var(--accent);
+  }
+
+  .kicker {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 8.4pt;
+    letter-spacing: 0.22em;
+    color: var(--accent);
+    margin-bottom: 4px;
+  }
+
+  h1 { font-size: 25pt; font-weight: 700; line-height: 1.1; letter-spacing: -0.01em; }
+
+  .headline { font-size: 11pt; color: var(--muted); margin-top: 4px; }
+
+  .location {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 8.4pt;
+    color: var(--muted);
+    text-align: right;
+    line-height: 1.6;
+  }
+
+  .layout {
+    display: grid;
+    grid-template-columns: 2.62in 1fr;
+    flex: 1;
+    min-height: 0;
+  }
+
+  aside {
+    background: var(--side);
+    padding: 0.24in 0.28in 0.3in 0.5in;
+  }
+
+  main { padding: 0.24in 0.5in 0.3in 0.34in; }
+
+  h2 {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 8.2pt;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 7px;
+  }
+
+  section + section { margin-top: 12px; }
+
+  aside { font-size: 8.6pt; }
+
+  .contact li { display: flex; align-items: center; gap: 8px; margin-bottom: 5px; }
+  .contact svg { width: 12px; height: 12px; flex-shrink: 0; stroke: var(--ink); }
+
+  .group + .group { margin-top: 7px; }
+  .group b { display: block; font-weight: 600; }
+  .group p { color: var(--muted); }
+
+  ul { list-style: none; }
+
+  .entry + .entry { margin-top: 8px; }
+
+  .entry-head { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
+  .entry-title { font-size: 10.6pt; font-weight: 600; }
+  .entry-title span { font-weight: 400; color: var(--muted); }
+  .date { font-family: 'IBM Plex Mono', monospace; font-size: 8.2pt; color: var(--muted); white-space: nowrap; }
+
+  .stack { font-family: 'IBM Plex Mono', monospace; font-size: 7.9pt; color: var(--accent); margin: 1px 0 3px; }
+  .place { color: var(--muted); }
+
+  .bullets li { position: relative; padding-left: 12px; margin-top: 1px; }
+  .bullets li::before { content: '•'; position: absolute; left: 1px; }
+
+  .link { font-family: 'IBM Plex Mono', monospace; font-size: 7.5pt; color: var(--muted); margin-top: 2px; }
+  .link a { white-space: nowrap; text-decoration: underline; text-decoration-color: #b8c4c2; text-underline-offset: 2px; }
+</style>
+</head>
+<body>
+<header>
+  <div>
+    <p class="kicker" data-t="kicker"></p>
+    <h1>Carlos José Castro López</h1>
+    <p class="headline" data-t="headline"></p>
+  </div>
+  <p class="location">Florencia, Caquetá<br />Colombia</p>
+</header>
+
+<div class="layout">
+  <aside>
+    <section>
+      <h2 data-t="contactTitle"></h2>
+      <ul class="contact" id="contact"></ul>
+    </section>
+    <section>
+      <h2 data-t="stackTitle"></h2>
+      <div id="stack"></div>
+    </section>
+    <section>
+      <h2 data-t="languagesTitle"></h2>
+      <div id="languages"></div>
+    </section>
+    <section>
+      <h2 data-t="strengthsTitle"></h2>
+      <p class="place" data-t="strengths"></p>
+    </section>
+  </aside>
+
+  <main>
+    <section>
+      <h2 data-t="profileTitle"></h2>
+      <p data-t="profile"></p>
+    </section>
+    <section>
+      <h2 data-t="experienceTitle"></h2>
+      <div id="experience"></div>
+    </section>
+    <section>
+      <h2 data-t="projectsTitle"></h2>
+      <div id="projects"></div>
+    </section>
+    <section>
+      <h2 data-t="educationTitle"></h2>
+      <div id="education"></div>
+    </section>
+  </main>
+</div>
+
+<script>
+const ICONS = {
+  phone: '<path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/>',
+  mail: '<rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/>',
+  web: '<circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>',
+  github: '<path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.1-1.3-.3-2.5-1-3.5.3-1.2.3-2.4 0-3.5 0 0-1 0-3 1.5-2.6-.5-5.4-.5-8 0C6 2 5 2 5 2c-.3 1.1-.3 2.3 0 3.5A5.4 5.4 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.4.5-.7 1-.9 1.6-.2.6-.2 1.2-.1 1.9v4"/><path d="M9 18c-4.5 2-5-2-7-2"/>',
+  linkedin: '<path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/>'
+}
+
+const SITE = 'portafolio-goap.vercel.app'
+
+const T = {
+  es: {
+    kicker: 'HOJA DE VIDA',
+    headline: 'Desarrollador de Software Full Stack · Python / Django · Vue 3',
+    contactTitle: 'Contacto',
+    stackTitle: 'Stack técnico',
+    languagesTitle: 'Idiomas',
+    strengthsTitle: 'Fortalezas',
+    profileTitle: 'Perfil',
+    experienceTitle: 'Experiencia',
+    projectsTitle: 'Proyectos',
+    educationTitle: 'Educación',
+    stack: [
+      ['Backend', 'Python, Django, Django REST Framework, JWT, APIs REST'],
+      ['Frontend', 'Vue 3, TypeScript, JavaScript, React, Tailwind CSS, Vite, HTML5 / CSS3'],
+      ['Datos', 'PostgreSQL, MySQL, SQLite, PocketBase'],
+      ['Calidad y DevOps', 'Pruebas automatizadas (Django, Vitest, Pester), Selenium, GitHub Actions, Git / GitHub, PowerShell'],
+      ['Métodos', 'Historias de usuario, requisitos, UML, Pull Requests, desarrollo guiado por especificaciones, documentación técnica']
+    ],
+    languages: [['Español', 'Nativo'], ['Inglés', 'A2 (sin certificación)']],
+    strengths: 'Aprendizaje autónomo · Responsabilidad · Adaptabilidad · Trabajo en equipo · Atención al detalle · Pensamiento lógico · Servicio al cliente',
+    profile: 'Desarrollador full stack con enfoque en Python / Django en el backend y Vue 3 + TypeScript en el frontend. Tecnólogo en Análisis y Desarrollo de Software (SENA) en etapa productiva, con experiencia freelance en backend. Construyo aplicaciones web completas —APIs REST, interfaces, pruebas y documentación— y cuido la calidad con Pull Requests e integración continua.',
+    experience: [
+      {
+        title: 'Python Backend Developer', place: 'Hostpal (freelance)', date: '2023 · 2 meses',
+        bullets: [
+          'Desarrollo y automatización de tareas con Python para procesar información de clientes y propiedades.',
+          'Manejo de bases de datos y apoyo en la integración y migración de información entre plataformas.',
+          'Verificación del código, buenas prácticas y análisis de soluciones técnicas en equipo.'
+        ]
+      }
+    ],
+    projects: [
+      {
+        title: 'MedAlert', tagline: 'Medicamentos, recordatorios y citas médicas',
+        stack: 'Django REST · JWT · Vue 3 · TypeScript · Tailwind · Vitest · ReportLab · GitHub Actions',
+        bullets: [
+          'App web full stack para cuidadores: pacientes, medicamentos, recordatorios y citas, con avisos por WhatsApp y PDF por paciente.',
+          'API REST con JWT, límite de intentos y aislamiento de datos entre cuidadores; frontend en Vue 3 + TypeScript.',
+          '71 tests (47 en Django, 24 con Vitest) en CI con GitHub Actions; historias de usuario, UML y Pull Requests.'
+        ],
+        caseStudy: 'medalert', repo: 'MedAlert'
+      },
+      {
+        title: 'DevForge', tagline: 'Entorno de desarrollo asistido por IA',
+        stack: 'PowerShell 7 · Pester · GitHub Actions · Spec-Driven Development',
+        bullets: [
+          'Doctor: diagnostica Git, Python, Node.js, Docker, VS Code y Ollama sin instalar nada (consola o JSON).',
+          'Init: instala un arnés de IA (AGENTS.md, CLAUDE.md, MEMORY.md) en otros proyectos según su stack.',
+          '116 tests en Pester, en PowerShell 7 y 5.1, en cada Pull Request con GitHub Actions.'
+        ],
+        caseStudy: 'devforge', repo: 'DevForge'
+      },
+      {
+        title: 'Diapasón', tagline: 'De tablaturas a partituras',
+        stack: 'Vue 3 · TypeScript · Vite · Django · HTML5 / CSS3',
+        bullets: [
+          'Editor web de tablatura con partitura sincronizada y un motor musical (duración y ritmo) cubierto con pruebas.'
+        ]
+      }
+    ],
+    education: [
+      { title: 'Tecnólogo en Análisis y Desarrollo de Software', place: 'SENA · Etapa productiva', date: 'Sep 2024 – actualidad' },
+      { title: 'Oracle Next Education (ONE) — Generación 5', place: 'Oracle + Alura Latam · 6 formaciones, 326 h (front end, JavaScript y React)', date: 'Mar – Sep 2023' },
+      { title: 'Desarrollo de Software con énfasis en aplicaciones web', place: 'Universidad Sergio Arboleda · Programa del Ministerio TIC', date: 'May 2021 – Dic 2022' }
+    ]
+  },
+  en: {
+    kicker: 'RESUME',
+    headline: 'Full Stack Software Developer · Python / Django · Vue 3',
+    contactTitle: 'Contact',
+    stackTitle: 'Tech stack',
+    languagesTitle: 'Languages',
+    strengthsTitle: 'Strengths',
+    profileTitle: 'Profile',
+    experienceTitle: 'Experience',
+    projectsTitle: 'Projects',
+    educationTitle: 'Education',
+    stack: [
+      ['Backend', 'Python, Django, Django REST Framework, JWT, REST APIs'],
+      ['Frontend', 'Vue 3, TypeScript, JavaScript, React, Tailwind CSS, Vite, HTML5 / CSS3'],
+      ['Data', 'PostgreSQL, MySQL, SQLite, PocketBase'],
+      ['Quality & DevOps', 'Automated testing (Django, Vitest, Pester), Selenium, GitHub Actions, Git / GitHub, PowerShell'],
+      ['Methods', 'User stories, requirements, UML, Pull Requests, spec-driven development, technical documentation']
+    ],
+    languages: [['Spanish', 'Native'], ['English', 'A2 (not certified)']],
+    strengths: 'Self-directed learning · Responsibility · Adaptability · Teamwork · Attention to detail · Logical thinking · Customer service',
+    profile: 'Full stack developer focused on Python / Django on the back end and Vue 3 + TypeScript on the front end. Software Analysis and Development Technologist (SENA) in the work-placement stage, with freelance back-end experience. I build complete web applications —REST APIs, interfaces, tests and documentation— and look after quality with Pull Requests and continuous integration.',
+    experience: [
+      {
+        title: 'Python Backend Developer', place: 'Hostpal (freelance)', date: '2023 · 2 months',
+        bullets: [
+          'Built and automated Python tasks to process client and property data.',
+          'Managed databases and helped integrate and migrate information between platforms.',
+          'Verified code, applied good practices and analyzed technical solutions as part of a team.'
+        ]
+      }
+    ],
+    projects: [
+      {
+        title: 'MedAlert', tagline: 'Medications, reminders and medical appointments',
+        stack: 'Django REST · JWT · Vue 3 · TypeScript · Tailwind · Vitest · ReportLab · GitHub Actions',
+        bullets: [
+          'Full stack web app for caregivers: patients, medications, reminders and appointments, with WhatsApp alerts and a PDF per patient.',
+          'REST API with JWT, rate limiting and data isolation between caregivers; Vue 3 + TypeScript front end.',
+          '71 tests (47 in Django, 24 with Vitest) in CI with GitHub Actions; user stories, UML and Pull Requests.'
+        ],
+        caseStudy: 'medalert', repo: 'MedAlert'
+      },
+      {
+        title: 'DevForge', tagline: 'AI-assisted development environment',
+        stack: 'PowerShell 7 · Pester · GitHub Actions · Spec-Driven Development',
+        bullets: [
+          'Doctor: checks Git, Python, Node.js, Docker, VS Code and Ollama without installing anything (console or JSON).',
+          'Init: installs an AI harness (AGENTS.md, CLAUDE.md, MEMORY.md) in other projects based on their stack.',
+          '116 Pester tests on PowerShell 7 and 5.1, on every Pull Request with GitHub Actions.'
+        ],
+        caseStudy: 'devforge', repo: 'DevForge'
+      },
+      {
+        title: 'Diapasón', tagline: 'From tablature to sheet music',
+        stack: 'Vue 3 · TypeScript · Vite · Django · HTML5 / CSS3',
+        bullets: [
+          'Web tablature editor with synchronized sheet music and a music engine (duration and rhythm) covered by tests.'
+        ]
+      }
+    ],
+    education: [
+      { title: 'Software Analysis and Development Technologist', place: 'SENA · Work-placement stage', date: 'Sep 2024 – present' },
+      { title: 'Oracle Next Education (ONE) — Cohort 5', place: 'Oracle + Alura Latam · 6 tracks, 326 h (front end, JavaScript and React)', date: 'Mar – Sep 2023' },
+      { title: 'Software Development with a focus on web applications', place: 'Universidad Sergio Arboleda · Colombian Ministry of ICT program', date: 'May 2021 – Dec 2022' }
+    ]
+  }
+}
+
+const params = new URLSearchParams(location.search)
+const lang = params.get('lang') === 'en' ? 'en' : 'es'
+const phone = params.get('phone')
+const t = T[lang]
+
+const esc = (s) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+const icon = (name) => `<svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${ICONS[name]}</svg>`
+const bullets = (items) => `<ul class="bullets">${items.map((b) => `<li>${esc(b)}</li>`).join('')}</ul>`
+
+document.documentElement.lang = lang
+document.title = `Carlos José Castro López — ${lang === 'es' ? 'Hoja de vida' : 'Resume'}`
+document.querySelectorAll('[data-t]').forEach((el) => { el.textContent = t[el.dataset.t] })
+
+const contact = [
+  phone && ['phone', phone, `tel:${phone.replace(/\s/g, '')}`],
+  ['mail', 'carlos.castro131121@gmail.com', 'mailto:carlos.castro131121@gmail.com'],
+  ['web', SITE, `https://${SITE}/`],
+  ['github', 'github.com/Carlos-j24', 'https://github.com/Carlos-j24'],
+  ['linkedin', 'in/carlos-castro-lpz', 'https://linkedin.com/in/carlos-castro-lpz/']
+].filter(Boolean)
+
+document.getElementById('contact').innerHTML = contact
+  .map(([name, text, href]) => `<li>${icon(name)}<a href="${href}">${esc(text)}</a></li>`).join('')
+
+document.getElementById('stack').innerHTML = t.stack
+  .map(([title, items]) => `<div class="group"><b>${esc(title)}</b><p>${esc(items)}</p></div>`).join('')
+
+document.getElementById('languages').innerHTML = t.languages
+  .map(([name, level]) => `<p><b>${esc(name)}</b> — ${esc(level)}</p>`).join('')
+
+document.getElementById('experience').innerHTML = t.experience.map((e) => `
+  <div class="entry">
+    <div class="entry-head">
+      <p class="entry-title">${esc(e.title)} <span>· ${esc(e.place)}</span></p>
+      <p class="date">${esc(e.date)}</p>
+    </div>
+    ${bullets(e.bullets)}
+  </div>`).join('')
+
+document.getElementById('projects').innerHTML = t.projects.map((p) => {
+  const links = []
+  if (p.caseStudy) links.push(`<a href="https://${SITE}/projects/${p.caseStudy}">${SITE}/projects/${p.caseStudy}</a>`)
+  if (p.repo) links.push(`<a href="https://github.com/Carlos-j24/${p.repo}">github.com/Carlos-j24/${p.repo}</a>`)
+  return `
+  <div class="entry">
+    <p class="entry-title">${esc(p.title)} <span>— ${esc(p.tagline)}</span></p>
+    <p class="stack">${esc(p.stack)}</p>
+    ${bullets(p.bullets)}
+    ${links.length ? `<p class="link">${links.join(' · ')}</p>` : ''}
+  </div>`
+}).join('')
+
+document.getElementById('education').innerHTML = t.education.map((e) => `
+  <div class="entry">
+    <div class="entry-head">
+      <p class="entry-title" style="font-size:10pt">${esc(e.title)}</p>
+      <p class="date">${esc(e.date)}</p>
+    </div>
+    <p class="place">${esc(e.place)}</p>
+  </div>`).join('')
+</script>
+</body>
+</html>

@@ -50,7 +50,7 @@
       </div>
 
       <!-- CTA -->
-      <div class="mt-10 flex justify-center gap-4 animate-fade-in-up anim-delay-500">
+      <div class="mt-10 flex flex-wrap justify-center gap-4 animate-fade-in-up anim-delay-500">
         <RouterLink
           :to="{ path: '/', hash: '#projects' }"
           @click="scrollIfCurrent('#projects')"
@@ -66,6 +66,15 @@
         >
           {{ t.hero.contactMe }}
         </RouterLink>
+
+        <a
+          :href="cvUrl(lang)"
+          download
+          class="inline-flex items-center gap-2 px-6 py-3 border border-emerald-400/40 text-emerald-300 rounded-lg hover:bg-emerald-400/10 transition"
+        >
+          <SocialIcon name="download" class="w-4 h-4" />
+          {{ t.hero.downloadCv }}
+        </a>
       </div>
 
     </div>
@@ -73,8 +82,10 @@
 </template>
 
 <script setup>
+import SocialIcon from '../SocialIcon.vue'
 import { useLang } from '../../composables/useLang.js'
 import { scrollIfCurrent } from '../../router.js'
+import { cvUrl } from '../../data/contact.js'
 
-const { t } = useLang()
+const { lang, t } = useLang()
 </script>
