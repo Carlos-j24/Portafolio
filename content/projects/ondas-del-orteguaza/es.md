@@ -2,7 +2,7 @@
 title: "Ondas del Orteguaza"
 date: 2026-10-09
 period: 2026
-role: "Web y app Android · en producción"
+role: "Lo lidero de principio a fin · en producción"
 stack: [HTML5, CSS3, JavaScript, PWA, Service Worker, Media Session API, Netlify, Kotlin, Android]
 repo: https://github.com/Carlos-j24/ondas-del-orteguaza
 image: /projects/ondas-del-orteguaza.webp
@@ -12,7 +12,7 @@ summary: "Web y app Android de una radio cristiana de Florencia, Caquetá: trans
 
 ## El problema
 
-Ondas del Orteguaza es una radio cristiana de Florencia, Caquetá, que transmite por internet. Sus oyentes escuchan sobre todo **desde el celular**, muchas veces con datos móviles inestables. Necesitaban un sitio donde darle play sin complicaciones, ver qué programa está al aire, enterarse de las actividades y enviar peticiones de oración. También querían una app en Google Play.
+Ondas del Orteguaza es una radio cristiana de Florencia, Caquetá, que transmite por internet. Sus oyentes escuchan sobre todo **desde el celular**, muchas veces con datos móviles inestables. Necesitaban un sitio donde darle play sin complicaciones, ver qué programa está al aire, enterarse de las actividades y enviar peticiones de oración. También querían una app en Google Play. Lo lidero de principio a fin: desde la propuesta que aprobó la emisora hasta la publicación en Google Play.
 
 ## Qué hace
 
@@ -23,7 +23,7 @@ Ondas del Orteguaza es una radio cristiana de Florencia, Caquetá, que transmite
 - **Peticiones de oración** con consentimiento y política de privacidad.
 - **Compartir por WhatsApp** y enlace a la **app de Google Play**.
 - Se instala como app (PWA) y abre aunque no haya conexión.
-- Una **app Android nativa** en Kotlin, publicada en Google Play.
+- **App Android v1.0** publicada en Google Play, y la **v2.0 nativa en Kotlin** en desarrollo.
 
 ## Arquitectura
 
@@ -31,7 +31,7 @@ Ondas del Orteguaza es una radio cristiana de Florencia, Caquetá, que transmite
        content.json (parrilla, actividades, versículos, enlaces)
              |                               |
 +------------v---------------+  +------------v------------------+
-| Web (PWA, un solo HTML)    |  | App Android (Kotlin)          |
+| Web (PWA, un solo HTML)    |  | App Android v2.0 (Kotlin)     |
 | reproductor + Media        |  | MediaPlayer en un servicio    |
 | Session API                |  | en primer plano, notificación |
 | service worker propio      |  | y foco de audio               |
@@ -48,7 +48,7 @@ GitHub (main) --push--> Netlify publica la web sola
 
 ### Un solo archivo de contenido para la web y la app
 
-La parrilla, las actividades, los versículos y los enlaces viven en `content.json`. La web lo lee, y la **app Android lo descarga de la web**. Así, para anunciar una actividad se cambia un solo archivo y aparece en los dos sitios, sin publicar una versión nueva de la app. Por eso hay campos que no se pueden quitar: la app los exige.
+La parrilla, las actividades, los versículos y los enlaces viven en `content.json`. La web lo lee, y la **app nativa v2.0, en desarrollo, lo descarga de la web**. Así, para anunciar una actividad se cambia un solo archivo y aparece en los dos sitios, sin publicar una versión nueva de la app. Por eso hay campos que no se pueden quitar: la app los exige.
 
 ### La transmisión se reconecta sola
 

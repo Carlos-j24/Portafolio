@@ -2,7 +2,7 @@
 title: "Ondas del Orteguaza"
 date: 2026-10-09
 period: 2026
-role: "Web and Android app · live"
+role: "I lead it end to end · live"
 stack: [HTML5, CSS3, JavaScript, PWA, Service Worker, Media Session API, Netlify, Kotlin, Android]
 repo: https://github.com/Carlos-j24/ondas-del-orteguaza
 image: /projects/ondas-del-orteguaza.webp
@@ -12,7 +12,7 @@ summary: "Website and Android app for a Christian radio station in Florencia, Co
 
 ## The problem
 
-Ondas del Orteguaza is a Christian radio station in Florencia, Caquetá (Colombia) that streams online. Most listeners tune in **from their phones**, often on unreliable mobile data. The station needed a site where you just press play, see which show is on air, find out about upcoming events and send prayer requests. They also wanted an app on Google Play.
+Ondas del Orteguaza is a Christian radio station in Florencia, Caquetá (Colombia) that streams online. Most listeners tune in **from their phones**, often on unreliable mobile data. The station needed a site where you just press play, see which show is on air, find out about upcoming events and send prayer requests. They also wanted an app on Google Play. I lead it end to end: from the proposal the station approved to the Google Play release.
 
 ## What it does
 
@@ -23,7 +23,7 @@ Ondas del Orteguaza is a Christian radio station in Florencia, Caquetá (Colombi
 - **Prayer requests** with consent and a privacy policy.
 - **Share on WhatsApp** and a link to the **Google Play app**.
 - Installs as an app (PWA) and opens even without a connection.
-- A **native Android app** in Kotlin, published on Google Play.
+- **Android app v1.0** published on Google Play, and a **native v2.0 in Kotlin** in progress.
 
 ## Architecture
 
@@ -31,7 +31,7 @@ Ondas del Orteguaza is a Christian radio station in Florencia, Caquetá (Colombi
           content.json (schedule, events, verses, links)
              |                               |
 +------------v---------------+  +------------v------------------+
-| Web (PWA, a single HTML)   |  | Android app (Kotlin)          |
+| Web (PWA, a single HTML)   |  | Android app v2.0 (Kotlin)     |
 | player + Media Session     |  | MediaPlayer in a foreground   |
 | API                        |  | service, notification and     |
 | custom service worker      |  | audio focus                   |
@@ -48,7 +48,7 @@ GitHub (main) --push--> Netlify publishes the site automatically
 
 ### One content file for the website and the app
 
-The schedule, events, verses and links live in `content.json`. The website reads it, and the **Android app downloads it from the website**. To announce an event, you change a single file and it shows up in both places, without releasing a new app version. That's also why some fields can't be removed: the app requires them.
+The schedule, events, verses and links live in `content.json`. The website reads it, and the **native v2.0 app, in progress, downloads it from the website**. To announce an event, you change a single file and it shows up in both places, without releasing a new app version. That's also why some fields can't be removed: the app requires them.
 
 ### The stream reconnects on its own
 

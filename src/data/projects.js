@@ -36,8 +36,8 @@ export const projects = [
     slug: 'ondas-del-orteguaza',
     image: '/projects/ondas-del-orteguaza.webp',
     description: {
-      en: 'Website and Android app for a Christian radio station in Florencia, Colombia: live stream that reconnects on its own, weekly schedule, events and prayer requests. Content lives in a single JSON file shared by the web and the Google Play app.',
-      es: 'Web y app Android de una radio cristiana de Florencia, Caquetá: transmisión en vivo que se reconecta sola, parrilla, actividades y peticiones de oración. El contenido vive en un solo JSON que comparten la web y la app de Google Play.'
+      en: 'Website and Android app for a Christian radio station in Florencia, Colombia: live stream that reconnects on its own, weekly schedule, events and prayer requests. App v1.0 on Google Play and a native Kotlin v2.0 in progress that reads the same content JSON as the website.',
+      es: 'Web y app Android de una radio cristiana de Florencia, Caquetá: transmisión en vivo que se reconecta sola, parrilla, actividades y peticiones de oración. App v1.0 en Google Play y v2.0 nativa en Kotlin en desarrollo, que lee el mismo JSON de contenido que la web.'
     },
     stack: ['JavaScript', 'PWA', 'Service Worker', 'Kotlin', 'Android', 'Netlify'],
     status: { en: 'Live', es: 'En Producción' },
