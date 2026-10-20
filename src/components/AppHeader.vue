@@ -109,7 +109,7 @@ const { lang, t, toggleLang } = useLang()
 
 const mobileMenuOpen = ref(false)
 
-const links = ['home', 'about', 'skills', 'journey', 'projects', 'blog', 'contact']
+const links = ['home', 'about', 'skills', 'ai', 'journey', 'projects', 'blog', 'contact']
 
 const socialLinks = [
   { name: 'email', label: email, href: `mailto:${email}`, external: false },

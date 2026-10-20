@@ -2,6 +2,7 @@
   <HeroSection />
   <AboutSection />
   <SkillsSection />
+  <AiSection />
   <JourneySection />
   <ProjectsSection />
   <BlogSection />
@@ -13,6 +14,7 @@
 import HeroSection from '../components/sections/HeroSection.vue'
 import AboutSection from '../components/sections/AboutSection.vue'
 import SkillsSection from '../components/sections/SkillsSection.vue'
+import AiSection from '../components/sections/AiSection.vue'
 import JourneySection from '../components/sections/JourneySection.vue'
 import ProjectsSection from '../components/sections/ProjectsSection.vue'
 import BlogSection from '../components/sections/BlogSection.vue'

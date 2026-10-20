@@ -2,6 +2,21 @@
 // slug: opcional; si existe content/projects/<slug>/, la tarjeta enlaza a su caso de estudio
 export const projects = [
   {
+    title: 'Inventario-POS',
+    slug: 'inventario-pos',
+    image: '/projects/inventario-pos.webp',
+    description: {
+      en: 'Inventory and point of sale for hardware stores: warehouse, register with cash count, orders, reports and Colombian e-invoicing. Installable PWA whose register keeps selling offline and syncs without duplicating sales. 637 automated tests.',
+      es: 'Inventario y punto de venta para ferreterías: bodega, caja con arqueo, pedidos, reportes y facturación electrónica DIAN. PWA instalable cuya caja sigue vendiendo sin internet y sincroniza sin duplicar ventas. 637 tests automatizados.'
+    },
+    stack: ['Django REST', 'PostgreSQL', 'React 19', 'TypeScript', 'PWA', 'Docker'],
+    status: { en: 'In Development', es: 'En Desarrollo' },
+    statusClass: 'text-amber-400 border-amber-400/30 bg-amber-400/10',
+    accent: 'from-sky-500 to-cyan-400',
+    demo: null,
+    repo: 'https://github.com/Carlos-j24/Inventario-POS'
+  },
+  {
     title: 'MedAlert',
     slug: 'medalert',
     image: '/projects/medalert.webp',
@@ -15,6 +30,21 @@ export const projects = [
     accent: 'from-emerald-500 to-teal-400',
     demo: null,
     repo: 'https://github.com/Carlos-j24/MedAlert'
+  },
+  {
+    title: 'Ondas del Orteguaza',
+    slug: 'ondas-del-orteguaza',
+    image: '/projects/ondas-del-orteguaza.webp',
+    description: {
+      en: 'Website and Android app for a Christian radio station in Florencia, Colombia: live stream that reconnects on its own, weekly schedule, events and prayer requests. App v1.0 on Google Play and a native Kotlin v2.0 in progress that reads the same content JSON as the website.',
+      es: 'Web y app Android de una radio cristiana de Florencia, Caquetá: transmisión en vivo que se reconecta sola, parrilla, actividades y peticiones de oración. App v1.0 en Google Play y v2.0 nativa en Kotlin en desarrollo, que lee el mismo JSON de contenido que la web.'
+    },
+    stack: ['JavaScript', 'PWA', 'Service Worker', 'Kotlin', 'Android', 'Netlify'],
+    status: { en: 'Live', es: 'En Producción' },
+    statusClass: 'text-emerald-400 border-emerald-400/30 bg-emerald-400/10',
+    accent: 'from-indigo-500 to-blue-400',
+    demo: 'https://ondas-del-orteguaza.netlify.app/',
+    repo: 'https://github.com/Carlos-j24/ondas-del-orteguaza'
   },
   {
     title: 'DevForge',
