@@ -2,7 +2,7 @@
 title: "Inventario-POS"
 date: 2026-10-19
 period: 2026
-role: "Proyecto en equipo · full stack · en desarrollo"
+role: "Proyecto personal · full stack · en desarrollo"
 stack: [Django, Django REST Framework, PostgreSQL, React 19, TypeScript, PWA, IndexedDB, Vitest, pytest, Docker, GitHub Actions]
 repo: https://github.com/Carlos-j24/Inventario-POS
 image: /projects/inventario-pos.webp
