@@ -23,7 +23,7 @@ Ondas del Orteguaza es una radio cristiana de Florencia, Caquetá, que transmite
 - **Peticiones de oración** con consentimiento y política de privacidad.
 - **Compartir por WhatsApp** y enlace a la **app de Google Play**.
 - Se instala como app (PWA) y abre aunque no haya conexión.
-- **App Android v1.0** publicada en Google Play, y la **v2.0 nativa en Kotlin** en desarrollo.
+- **App Android nativa en Kotlin** (v2.0.2) publicada en Google Play.
 
 ## Arquitectura
 
@@ -48,7 +48,7 @@ GitHub (main) --push--> Netlify publica la web sola
 
 ### Un solo archivo de contenido para la web y la app
 
-La parrilla, las actividades, los versículos y los enlaces viven en `content.json`. La web lo lee, y la **app nativa v2.0, en desarrollo, lo descarga de la web**. Así, para anunciar una actividad se cambia un solo archivo y aparece en los dos sitios, sin publicar una versión nueva de la app. Por eso hay campos que no se pueden quitar: la app los exige.
+La parrilla, las actividades, los versículos y los enlaces viven en `content.json`. La web lo lee, y la **app nativa lo descarga de la web**. Así, para anunciar una actividad se cambia un solo archivo y aparece en los dos sitios, sin publicar una versión nueva de la app. Por eso hay campos que no se pueden quitar: la app los exige.
 
 ### La transmisión se reconecta sola
 
@@ -60,7 +60,7 @@ La web es HTML, CSS y JavaScript sin dependencias. Netlify publica la raíz del 
 
 ### Hecha para cada dispositivo
 
-El programa "en vivo" y el día "Hoy" usan la **hora de Bogotá**, no la del celular. En iOS se oculta el control de volumen, porque Safari no deja cambiarlo desde la web. Dentro de la app Android se oculta el formulario de oración, como dice su política de privacidad.
+El programa "en vivo" y el día "Hoy" usan la **hora de Bogotá**, no la del celular. En iOS se oculta el control de volumen, porque Safari no deja cambiarlo desde la web. La app Android no incluye el formulario de oración, como dice su política de privacidad.
 
 ## Capturas
 
