@@ -23,7 +23,7 @@ Ondas del Orteguaza is a Christian radio station in Florencia, Caquetá (Colombi
 - **Prayer requests** with consent and a privacy policy.
 - **Share on WhatsApp** and a link to the **Google Play app**.
 - Installs as an app (PWA) and opens even without a connection.
-- **Android app v1.0** published on Google Play, and a **native v2.0 in Kotlin** in progress.
+- **Native Android app in Kotlin** (v2.0.2) published on Google Play.
 
 ## Architecture
 
@@ -48,7 +48,7 @@ GitHub (main) --push--> Netlify publishes the site automatically
 
 ### One content file for the website and the app
 
-The schedule, events, verses and links live in `content.json`. The website reads it, and the **native v2.0 app, in progress, downloads it from the website**. To announce an event, you change a single file and it shows up in both places, without releasing a new app version. That's also why some fields can't be removed: the app requires them.
+The schedule, events, verses and links live in `content.json`. The website reads it, and the **native app downloads it from the website**. To announce an event, you change a single file and it shows up in both places, without releasing a new app version. That's also why some fields can't be removed: the app requires them.
 
 ### The stream reconnects on its own
 
@@ -60,7 +60,7 @@ The website is HTML, CSS and JavaScript with no dependencies. Netlify publishes 
 
 ### Built for each device
 
-The "on air" show and "Today" use **Bogotá time**, not the phone's. On iOS the volume control is hidden, because Safari doesn't allow changing it from the web. Inside the Android app the prayer form is hidden, as its privacy policy states.
+The "on air" show and "Today" use **Bogotá time**, not the phone's. On iOS the volume control is hidden, because Safari doesn't allow changing it from the web. The Android app doesn't include the prayer form, as its privacy policy states.
 
 ## Screenshots
 
